@@ -4,16 +4,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- include some css -->
+
     <title>Mike's website</title>
+    <style>
+        .title {
+            color: #0fafff;
+            font-size: 2rem;
+    
+        }
+    
+        .card {
+            border: 1px solid black;
+            padding: 1rem;
+            margin: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            max-width: 300px;
+            background: #0f4fbf;
+        }
+    </style>
 </head>
 
 <body>
+
     <div>
-        <h1>A great big heading</h1>
-        <p>A great big paragraph</p>
+        <h1 class="title" style="color: red; font-size: 4rem; color: green;">A great big heading</h1>
+        <p class="title">A great big paragraph</p>
         <!-- make me a few divs with dummy content 
-        and it's a multiline comment format -->
-        <div>
+            and it's a multiline comment format -->
+        <div class="card">
             <h2>A little smaller heading</h2>
             <p>A little smaller paragraph</p>
         </div>
@@ -24,11 +47,12 @@
 
     </script>
     <!-- STYLES -->
-    <style>
-
-    </style>
 
 
+
+    
 </body>
+
+
 
 </html>
