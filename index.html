@@ -7,26 +7,6 @@
     <!-- include some css -->
 
     <title>Mike's website</title>
-    <style>
-        .title {
-            color: #0fafff;
-            font-size: 2rem;
-    
-        }
-    
-        .card {
-            border: 1px solid black;
-            padding: 1rem;
-            margin: 1rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            max-width: 300px;
-            background: #0f4fbf;
-        }
-    </style>
 </head>
 
 <body>
@@ -37,8 +17,12 @@
         <!-- make me a few divs with dummy content 
             and it's a multiline comment format -->
         <div class="card">
-            <h2>A little smaller heading</h2>
-            <p>A little smaller paragraph</p>
+            <div class="img-wrapper"><img src="https://picsum.photos/300/600" alt=""></div>
+            <div class="inner flex">
+                <h2>A little smaller heading</h2>
+                <p>A little smaller paragraph</p>
+
+            </div>
         </div>
     </div>
 
@@ -50,9 +34,58 @@
 
 
 
-    
+
 </body>
 
 
 
 </html>
+<style>
+    .title {
+        color: #0fafff;
+        font-size: 2rem;
+
+    }
+
+    .card {
+        border: 1px solid black;
+        display: flex;
+        flex-direction: row;
+        /* align-items: center; */
+        justify-content: center;
+        /* text-align: center; */
+        max-width: 300px;
+        background: #0f4fbf;
+        color: white;
+        text-align: left;
+    }
+
+    .card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        background-size: 100% 100%;
+
+    }
+
+    .img-wrapper {
+        width: 30%;
+        /* height: 100%; */
+        /* align-self: start; */
+    }
+
+    .inner {
+        width: calc(70% - 2rem);
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        text-align: left;
+        padding: 1rem 1rem 0 1rem;
+        margin: 0;
+    }
+
+    .flex {
+        display: flex;
+    }
+</style>
