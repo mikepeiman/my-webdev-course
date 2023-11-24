@@ -10,19 +10,100 @@
 </head>
 
 <body>
-
-    <div>
-        <h1 class="title" style="color: red; font-size: 4rem; color: green;">A great big heading</h1>
-        <p class="title">A great big paragraph</p>
-        <!-- make me a few divs with dummy content 
-            and it's a multiline comment format -->
-        <div class="card">
-            <div class="img-wrapper"><img src="https://picsum.photos/300/600" alt=""></div>
-            <div class="inner flex">
-                <h2>A little smaller heading</h2>
-                <p>A little smaller paragraph</p>
-
+    <div class="top-nav"></div>
+    <div class="under-nav">
+        <div class="side-nav"></div>
+        <div class="main">
+            <div class="column-wrapper">
+                <div class="flex row-wrapper">
+                    <div class="card">
+                        <div class="img-wrapper">
+                            <img src="https://picsum.photos/300/600" alt="">
+                        </div>
+                        <div class="inner flex">
+                            <h2>A little smaller heading</h2>
+                            <p>A little smaller paragraph</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="img-wrapper">
+                            <img src="https://picsum.photos/300/600" alt="">
+                        </div>
+                        <div class="inner flex">
+                            <h2>A little smaller heading</h2>
+                            <p>A little smaller paragraph</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="img-wrapper">
+                            <img src="https://picsum.photos/300/600" alt="">
+                        </div>
+                        <div class="inner flex">
+                            <h2>A little smaller heading</h2>
+                            <p>A little smaller paragraph</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex row-wrapper">
+                    <div class="card">
+                        <div class="img-wrapper">
+                            <img src="https://picsum.photos/300/600" alt="">
+                        </div>
+                        <div class="inner flex">
+                            <h2>A little smaller heading</h2>
+                            <p>A little smaller paragraph</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="img-wrapper">
+                            <img src="https://picsum.photos/300/600" alt="">
+                        </div>
+                        <div class="inner flex">
+                            <h2>A little smaller heading</h2>
+                            <p>A little smaller paragraph</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="img-wrapper">
+                            <img src="https://picsum.photos/300/600" alt="">
+                        </div>
+                        <div class="inner flex">
+                            <h2>A little smaller heading</h2>
+                            <p>A little smaller paragraph</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex row-wrapper">
+                    <div class="card">
+                        <div class="img-wrapper">
+                            <img src="https://picsum.photos/300/600" alt="">
+                        </div>
+                        <div class="inner flex">
+                            <h2>A little smaller heading</h2>
+                            <p>A little smaller paragraph</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="img-wrapper">
+                            <img src="https://picsum.photos/300/600" alt="">
+                        </div>
+                        <div class="inner flex">
+                            <h2>A little smaller heading</h2>
+                            <p>A little smaller paragraph</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="img-wrapper">
+                            <img src="https://picsum.photos/300/600" alt="">
+                        </div>
+                        <div class="inner flex">
+                            <h2>A little smaller heading</h2>
+                            <p>A little smaller paragraph</p>
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </div>
     </div>
 
@@ -41,6 +122,10 @@
 
 </html>
 <style>
+
+    body {
+        margin: 0;
+    }
     .title {
         color: #0fafff;
         font-size: 2rem;
@@ -63,10 +148,6 @@
     .card img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
-        object-position: center;
-        background-size: 100% 100%;
-
     }
 
     .img-wrapper {
@@ -87,5 +168,51 @@
 
     .flex {
         display: flex;
+    }
+
+    .row-wrapper {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        gap: 2rem;
+    }
+
+    .column-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .top-nav {
+        background: #0fafff;
+        color: white;
+        height: 5rem;
+        width: 100%;
+
+    }
+    .side-nav {
+        background: #0fafff;
+        color: white;
+        height: 100%;
+        width: 5rem;
+
+    }
+
+    .under-nav {
+        background: #030f0f;
+        color: white;
+        height: calc(100vh - 5rem);
+        width: 100%;
+        position: relative;
+    }
+
+    .main {
+        background: #030f0f;
+        position: absolute;
+        top: 5rem;
+        left: 10rem;
     }
 </style>
