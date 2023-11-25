@@ -11,16 +11,16 @@
 
 <body>
     <div class="top-nav"></div>
-    <div class="under-nav">
+    <div class="flex under-nav">
         <div class="side-nav"></div>
-        <div class="main">
+        <div class="flex main">
             <div class="column-wrapper">
                 <div class="flex row-wrapper">
                     <div class="card">
                         <div class="img-wrapper">
-                            <img src="https://picsum.photos/300/600/?random&someParam=1" alt="">
+                            <img src="https://picsum.photos/300/600/?random=1" alt="picsum placeholder image for card component">
                         </div>
-                        <div class="inner flex">
+                        <div class="card-content-wrapper flex">
                             <h2>A little smaller heading</h2>
                             <p>A little smaller paragraph</p>
                         </div>
@@ -29,7 +29,7 @@
                         <div class="img-wrapper">
                             <img src="https://picsum.photos/300/600/?random&someParam=2" alt="">
                         </div>
-                        <div class="inner flex">
+                        <div class="card-content-wrapper flex">
                             <h2>A little smaller heading</h2>
                             <p>A little smaller paragraph</p>
                         </div>
@@ -38,7 +38,7 @@
                         <div class="img-wrapper">
                             <img src="https://picsum.photos/300/600/?random&someParam=3" alt="">
                         </div>
-                        <div class="inner flex">
+                        <div class="card-content-wrapper flex">
                             <h2>A little smaller heading</h2>
                             <p>A little smaller paragraph</p>
                         </div>
@@ -49,7 +49,7 @@
                         <div class="img-wrapper">
                             <img src="https://picsum.photos/300/600" alt="">
                         </div>
-                        <div class="inner flex">
+                        <div class="card-content-wrapper flex">
                             <h2>A little smaller heading</h2>
                             <p>A little smaller paragraph</p>
                         </div>
@@ -58,7 +58,7 @@
                         <div class="img-wrapper">
                             <img src="https://picsum.photos/300/600" alt="">
                         </div>
-                        <div class="inner flex">
+                        <div class="card-content-wrapper flex">
                             <h2>A little smaller heading</h2>
                             <p>A little smaller paragraph</p>
                         </div>
@@ -67,7 +67,7 @@
                         <div class="img-wrapper">
                             <img src="https://picsum.photos/300/600" alt="">
                         </div>
-                        <div class="inner flex">
+                        <div class="card-content-wrapper flex">
                             <h2>A little smaller heading</h2>
                             <p>A little smaller paragraph</p>
                         </div>
@@ -78,7 +78,7 @@
                         <div class="img-wrapper">
                             <img src="https://picsum.photos/300/600" alt="">
                         </div>
-                        <div class="inner flex">
+                        <div class="card-content-wrapper flex">
                             <h2>A little smaller heading</h2>
                             <p>A little smaller paragraph</p>
                         </div>
@@ -87,7 +87,7 @@
                         <div class="img-wrapper">
                             <img src="https://picsum.photos/300/600" alt="">
                         </div>
-                        <div class="inner flex">
+                        <div class="card-content-wrapper flex">
                             <h2>A little smaller heading</h2>
                             <p>A little smaller paragraph</p>
                         </div>
@@ -96,7 +96,7 @@
                         <div class="img-wrapper">
                             <img src="https://picsum.photos/300/600" alt="">
                         </div>
-                        <div class="inner flex">
+                        <div class="card-content-wrapper flex">
                             <h2>A little smaller heading</h2>
                             <p>A little smaller paragraph</p>
                         </div>
@@ -156,7 +156,7 @@
         /* align-self: start; */
     }
 
-    .inner {
+    .card-content-wrapper {
         width: calc(70% - 2rem);
         display: flex;
         flex-direction: column;
@@ -169,6 +169,7 @@
     .flex {
         display: flex;
     }
+    
 
     .row-wrapper {
         display: flex;
@@ -184,6 +185,7 @@
         justify-content: space-around;
         align-items: center;
         gap: 2rem;
+        width: 100%;
     }
 
     .top-nav {
@@ -211,8 +213,6 @@
 
     .main {
         background: #030f0f;
-        position: absolute;
-        top: 5rem;
-        left: 10rem;
+        width: 100%;
     }
 </style>
