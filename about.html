@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- include some css -->
+
+    <title>Mike's website</title>
+</head>
+
+<body>
+    <div class="top-nav flex space-between">
+        <a href="/" class="logo-wrapper">
+        <div class="logo-container">
+                <svg class="home-icon" xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+                    <path fill="currentColor"
+                        d="M216 28h-64a12 12 0 0 0-9.51 4.68l-61.23 79.6l-6.42-6.42a20 20 0 0 0-28.29 0l-16.69 16.69a20 20 0 0 0 0 28.29L45 166l-21.14 21.17a20 20 0 0 0 0 28.28l16.69 16.69a20 20 0 0 0 28.28 0L90 211l15.17 15.16a20 20 0 0 0 28.29 0l16.69-16.69a20 20 0 0 0 0-28.3l-6.42-6.41l79.6-61.23A12 12 0 0 0 228 104V40a12 12 0 0 0-12-12ZM54.69 212.34l-11-11L62 183l11 11Zm64.61-6L49.65 136.7l11.05-11l69.65 69.65ZM204 98.09l-77.39 59.53L121 152l47.51-47.5a12 12 0 0 0-17-17L104 135l-5.63-5.63L157.91 52H204Z" />
+                </svg>
+            </div>
+        </a>
+        <ul class="flex menu-wrapper">
+            <li><a href="/">Home</a></li>
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/about">About</a></li>
+        </ul>
+    </div>
+    <div class="flex under-nav">
+        <div class="side-nav"></div>
+        <div class="flex main">
+            <div class="column-wrapper">
+                
+            <h1>ABOUT</h1>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+
+    </script>
+    <!-- STYLES -->
+
+
+
+
+</body>
+
+
+
+</html>
+<style>
+    body {
+        margin: 0;
+    }
+
+    .title {
+        color: #0fafff;
+        font-size: 2rem;
+
+    }
+    .logo-wrapper {
+        width: 5rem;
+    }
+
+    .logo-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+    }
+
+    .home-icon {
+        width: 80%;
+        height: 80%;
+        padding: .5rem 0 0 .5rem;
+    }
+
+    .space-between {
+        justify-content: space-between;
+    }
+
+    .menu-wrapper {
+        justify-content: space-around;
+        align-items: center;
+        width: 20rem;
+    }
+
+    li {
+        list-style: none;
+    }
+    .card {
+        border: 1px solid black;
+        display: flex;
+        flex-direction: row;
+        /* align-items: center; */
+        justify-content: center;
+        /* text-align: center; */
+        max-width: 300px;
+        background: #0f4fbf;
+        color: white;
+        text-align: left;
+    }
+
+    .card img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .img-wrapper {
+        width: 30%;
+        /* height: 100%; */
+        /* align-self: start; */
+    }
+
+    .card-content-wrapper {
+        width: calc(70% - 2rem);
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        text-align: left;
+        padding: 1rem 1rem 0 1rem;
+        margin: 0;
+    }
+
+    .flex {
+        display: flex;
+    }
+
+
+    .row-wrapper {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        gap: 2rem;
+    }
+
+    .column-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        gap: 2rem;
+        width: 100%;
+    }
+
+    .top-nav {
+        background: #0fafff;
+        color: white;
+        height: 5rem;
+        width: 100%;
+
+    }
+
+    .side-nav {
+        background: #0fafff;
+        color: white;
+        height: 100%;
+        width: 5rem;
+
+    }
+
+    .under-nav {
+        background: #030f0f;
+        color: white;
+        height: calc(100vh - 5rem);
+        width: 100%;
+        position: relative;
+    }
+
+    .main {
+        background: #030f0f;
+        width: 100%;
+    }
+</style>
