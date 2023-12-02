@@ -1,0 +1,11 @@
+{
+    "name": "Mike's Webdev Course",
+    "version": "0.1",
+    "description": "Let's learn webdev (and thinking, and problem-solving), honey!",
+    "scripts": {
+        "start": "nodemon "
+    },
+    "devDependencies": {
+        "livereload": "^0.9.3"
+    }
+}
