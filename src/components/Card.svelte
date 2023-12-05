@@ -16,8 +16,8 @@
 <style>
 
     .card-wrapper {
-        width: 100%;
-        height: 100%;
+        width: 70%;
+        height: auto;
         background: #ccc;
         border-radius: 0 1rem 1rem 0;
     }
@@ -26,13 +26,20 @@
     }
 
     .image-wrapper {
-        width: 100%;
+        width: 30%;
         height: 100%;
 
     }
 
-    .card-content-wrapper {
+    img {
         width: 100%;
+        height: 100%;
+        object-fit: cover;
+
+    }
+
+    .card-content-wrapper {
+        width: 70%;
         height: 100%;
         padding: 1rem;
         display: flex;
