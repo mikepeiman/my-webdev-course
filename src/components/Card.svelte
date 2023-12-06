@@ -5,7 +5,7 @@
 
 <div class="flex card-wrapper">
     <div class="image-wrapper flex">
-        <img src="https://loremflickr.com/320/240" alt="Placeholder image from Flickr - proably a random cat">
+        <img src="https://loremflickr.com/320/240?madeitup={Math.random()}" alt="Placeholder image from Flickr - proably a random cat">
     </div>
     <div class="card-content-wrapper">
         <h1>{title}</h1>
