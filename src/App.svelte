@@ -4,8 +4,8 @@
   import Counter from "./lib/Counter.svelte";
   import Card from "./components/Card.svelte";
 
-  let rows = 3;
-  let cols = 2;
+  let columns = 3;
+  let rows = 2;
 </script>
 
 <main class="flex flex-col">
@@ -16,27 +16,27 @@
         <button
           type="button"
           class="button-add"
-          on:click={() => rows = rows + 1}>Add Row</button>
+          on:click={() => columns = columns + 1}>Add column</button>
         <button
           type="button"
           class="button-add"
-          on:click={() => (cols = cols + 1)}>Add Col</button>
+          on:click={() => (rows = rows + 1)}>Add Row</button>
 
 
+        <button
+          type="button"
+          class="button-remove"
+          on:click={() => (columns = columns - 1)}>Remove column</button>
         <button
           type="button"
           class="button-remove"
           on:click={() => (rows = rows - 1)}>Remove Row</button>
-        <button
-          type="button"
-          class="button-remove"
-          on:click={() => (cols = cols - 1)}>Remove Col</button>
       </div>
     </div>
-    <div class="flex card-row">
-      {#each Array(rows) as row}
+    <div class="flex card-column">
+      {#each Array(columns) as column}
         <div class="flex card-col">
-          {#each Array(cols) as col}
+          {#each Array(rows) as row}
             <Card
               title="Svelte"
               description="The official Svelte app framework powered by Vite!" />
@@ -75,7 +75,7 @@
     /* cool tasteful gradient */
     background: linear-gradient(90deg, #00c9ff 0%, #92fe9d 100%);
   }
-  .card-row {
+  .card-column {
     display: flex;
     flex-direction: row;
     justify-content: space-between;

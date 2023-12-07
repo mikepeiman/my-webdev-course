@@ -1,6 +1,5 @@
 <script>
     import { LoremIpsum } from "lorem-ipsum";
-    import { onMount } from "svelte";
 
     function generateLoremIpsum(val) {
         const lorem = new LoremIpsum({
@@ -13,13 +12,12 @@
                 min: 4,
             },
         });
-        if(val === "title"){
+        if (val === "title") {
             return lorem.generateWords(1);
         } else {
-            return lorem.generateSentences(3).substring(0, 70) + '...';
+            return lorem.generateSentences(3).substring(0, 70) + "...";
         }
     }
-
 
     $: title = generateLoremIpsum("title");
     $: description = generateLoremIpsum();
@@ -67,7 +65,7 @@
     .card-content-wrapper {
         width: 70%;
         height: 100%;
-        padding: 1rem;
+        padding: 1rem .5rem 1rem 1rem;
         display: flex;
         flex-direction: column;
         text-align: left;
@@ -79,9 +77,9 @@
     }
 
     p {
-        font-size: .8rem;
+        font-size: 0.8rem;
         margin: 0;
-        padding: 0.25rem;
+        padding: 0.05rem;
         padding-top: 0.5rem;
     }
 </style>
