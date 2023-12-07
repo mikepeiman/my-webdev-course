@@ -4,46 +4,76 @@
   import Counter from "./lib/Counter.svelte";
   import Card from "./components/Card.svelte";
 
-  let rows = [1, 2];
-  let cols = [1, 2];
+  let rows = 3;
+  let cols = 2;
 </script>
 
-<main>
+<main class="flex flex-col">
   <h1 class="banner-heading">Vite + Svelte + Kaya + Daddy</h1>
-  <div class="buttons-wrapper">
-    <button type="button" class="button" on:click={() => rows  = [...rows, rows.length + 1]}>Add Row</button>
-    <button type="button" class="button" on:click={() => cols  = [...cols, cols.length + 1]}>Add Col</button>
-  </div>
-<div class="flex card-row">
-  
-  {#each rows as row}
-    <div class="flex card-col">
-      {#each cols as col}
-        <Card
-          title="Svelte"
-          description="The official Svelte app framework powered by Vite!" />
+  <div class="flex flex-col">
+    <div class="flex flex-col">
+      <div class="buttons-wrapper flex">
+        <button
+          type="button"
+          class="button-add"
+          on:click={() => rows = rows + 1}>Add Row</button>
+        <button
+          type="button"
+          class="button-add"
+          on:click={() => (cols = cols + 1)}>Add Col</button>
+
+
+        <button
+          type="button"
+          class="button-remove"
+          on:click={() => (rows = rows - 1)}>Remove Row</button>
+        <button
+          type="button"
+          class="button-remove"
+          on:click={() => (cols = cols - 1)}>Remove Col</button>
+      </div>
+    </div>
+    <div class="flex card-row">
+      {#each Array(rows) as row}
+        <div class="flex card-col">
+          {#each Array(cols) as col}
+            <Card
+              title="Svelte"
+              description="The official Svelte app framework powered by Vite!" />
+          {/each}
+        </div>
       {/each}
     </div>
-  {/each}
-</div>
-
-
+  </div>
 </main>
 
 <style>
-.button {
-  background: linear-gradient(90deg, #004255 0%, #005609 100%);
-  color: white;
-  padding: 1.25rem;
-  border-radius: .25rem;
-}
+
+  .buttons-wrapper {
+    gap: 1rem;
+    padding: 1rem;
+    justify-content: center;
+    align-items: center;
+  }
+  .button-add {
+    background: linear-gradient(90deg, #0042f5 0%, #0056c9 100%);
+    color: white;
+    padding: 1.25rem;
+    border-radius: 0.25rem;
+  }
+  .button-remove {
+    background: linear-gradient(90deg, #af5500 0%, #8f2f00 100%);
+    color: white;
+    padding: 1.25rem;
+    border-radius: 0.25rem;
+  }
   .banner-heading {
     text-align: center;
     font-size: 3rem;
     margin: 0;
     padding: 3rem;
     /* cool tasteful gradient */
-    background: linear-gradient(90deg, #00C9FF 0%, #92FE9D 100%);
+    background: linear-gradient(90deg, #00c9ff 0%, #92fe9d 100%);
   }
   .card-row {
     display: flex;
@@ -51,11 +81,19 @@
     justify-content: space-between;
     gap: 2rem;
   }
-.card-col {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
+  .card-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+  .flex {
+    display: flex;
+  }
+
+  .flex-col {
+    flex-direction: column;
+  }
 
   .logo {
     height: 6em;

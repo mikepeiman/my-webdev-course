@@ -1,14 +1,36 @@
 <script>
-    let title = "Svelte"
-    let description = "The official Svelte app framework powered by Vite!"
-// clamp the description to fit in the card 
-    description = description.substring(0, 100) + "..."
+    import { LoremIpsum } from "lorem-ipsum";
+    import { onMount } from "svelte";
 
+    function generateLoremIpsum(val) {
+        const lorem = new LoremIpsum({
+            sentencesPerParagraph: {
+                max: 8,
+                min: 4,
+            },
+            wordsPerSentence: {
+                max: 16,
+                min: 4,
+            },
+        });
+        if(val === "title"){
+            return lorem.generateWords(1);
+        } else {
+            return lorem.generateSentences(3).substring(0, 70) + '...';
+        }
+    }
+
+
+    $: title = generateLoremIpsum("title");
+    $: description = generateLoremIpsum();
+    // clamp the description to fit in the card
 </script>
 
 <div class="flex card-wrapper">
     <div class="image-wrapper flex">
-        <img src="https://loremflickr.com/320/240?t={Math.random()}" alt="Placeholder image from Flickr - proably a random cat">
+        <img
+            src="https://loremflickr.com/320/240?t={Math.random()}"
+            alt="Placeholder image from Flickr - probably a random cat" />
     </div>
     <div class="card-content-wrapper">
         <h1>{title}</h1>
@@ -16,10 +38,7 @@
     </div>
 </div>
 
-
-
 <style>
-
     .card-wrapper {
         width: 70%;
         height: auto;
@@ -43,7 +62,6 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-
     }
 
     .card-content-wrapper {
@@ -52,6 +70,7 @@
         padding: 1rem;
         display: flex;
         flex-direction: column;
+        text-align: left;
     }
 
     h1 {
@@ -60,9 +79,9 @@
     }
 
     p {
-        /* font-size: 1.2rem; */
+        font-size: .8rem;
         margin: 0;
         padding: 0.25rem;
-        padding-top: .5rem;
+        padding-top: 0.5rem;
     }
 </style>
