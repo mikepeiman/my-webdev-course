@@ -3,15 +3,22 @@
   import viteLogo from "/vite.svg";
   import Counter from "./lib/Counter.svelte";
   import Card from "./components/Card.svelte";
+
+  let rows = [1, 2];
+  let cols = [1, 2];
 </script>
 
 <main>
-  <h1>Vite + Svelte + Kaya + Daddy</h1>
+  <h1 class="banner-heading">Vite + Svelte + Kaya + Daddy</h1>
+  <div class="buttons-wrapper">
+    <button type="button" class="button" on:click={() => rows  = [...rows, rows.length + 1]}>Add Row</button>
+    <button type="button" class="button" on:click={() => cols  = [...cols, cols.length + 1]}>Add Col</button>
+  </div>
 <div class="flex card-row">
   
-  {#each [1, 2, 3] as row}
+  {#each rows as row}
     <div class="flex card-col">
-      {#each [1, 2, 3] as col}
+      {#each cols as col}
         <Card
           title="Svelte"
           description="The official Svelte app framework powered by Vite!" />
@@ -20,22 +27,24 @@
   {/each}
 </div>
 
-  <div class="card">
-    <Counter />
-  </div>
 
-  <p>
-    Check out <a
-      href="https://github.com/sveltejs/kit#readme"
-      target="_blank"
-      rel="noreferrer">SvelteKit</a
-    >, the official Svelte app framework powered by Vite!
-  </p>
-
-  <p class="read-the-docs">Click on the Vite and Svelte logos to learn more</p>
 </main>
 
 <style>
+.button {
+  background: linear-gradient(90deg, #004255 0%, #005609 100%);
+  color: white;
+  padding: 1.25rem;
+  border-radius: .25rem;
+}
+  .banner-heading {
+    text-align: center;
+    font-size: 3rem;
+    margin: 0;
+    padding: 3rem;
+    /* cool tasteful gradient */
+    background: linear-gradient(90deg, #00C9FF 0%, #92FE9D 100%);
+  }
   .card-row {
     display: flex;
     flex-direction: row;
