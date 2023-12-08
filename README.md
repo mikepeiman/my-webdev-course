@@ -1,3 +1,6 @@
+A little course I'm putting together to teach web development to beginners in a practical, fun way.
+Teaching my 10-year old daughter and using that process to develop the outline and content.
+
 # Svelte + Vite
 
 This template should help get you started developing with Svelte in Vite.
@@ -45,3 +48,4 @@ If you have state that's important to retain within a component, consider creati
 import { writable } from 'svelte/store'
 export default writable(0)
 ```
+
