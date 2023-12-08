@@ -3,6 +3,7 @@
   import viteLogo from "/vite.svg";
   import Counter from "./lib/Counter.svelte";
   import Card from "./components/Card.svelte";
+  import Box from "./components/Box.svelte";
 
   let columns = 3;
   let rows = 2;
@@ -16,12 +17,11 @@
         <button
           type="button"
           class="button-add"
-          on:click={() => columns = columns + 1}>Add column</button>
+          on:click={() => (columns = columns + 1)}>Add column</button>
         <button
           type="button"
           class="button-add"
           on:click={() => (rows = rows + 1)}>Add Row</button>
-
 
         <button
           type="button"
@@ -33,13 +33,11 @@
           on:click={() => (rows = rows - 1)}>Remove Row</button>
       </div>
     </div>
-    <div class="flex card-column">
+    <div class="flex card-row">
       {#each Array(columns) as column}
         <div class="flex card-col">
           {#each Array(rows) as row}
-            <Card
-              title="Svelte"
-              description="The official Svelte app framework powered by Vite!" />
+            <Box />
           {/each}
         </div>
       {/each}
@@ -49,6 +47,9 @@
 
 <style>
 
+  main {
+    width: 80vw;
+  }
   .buttons-wrapper {
     gap: 1rem;
     padding: 1rem;
@@ -75,17 +76,21 @@
     /* cool tasteful gradient */
     background: linear-gradient(90deg, #00c9ff 0%, #92fe9d 100%);
   }
-  .card-column {
+  .card-row {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    gap: 2rem;
+    gap: 1rem;
+    width: 80vw;
+    overflow: hidden;
   }
   .card-col {
     display: flex;
+    width: 100%;
+    height: 100%;
     flex-direction: column;
     align-items: center;
-    gap: 2rem;
+    gap: 1rem;
   }
   .flex {
     display: flex;
