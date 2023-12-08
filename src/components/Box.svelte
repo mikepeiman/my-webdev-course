@@ -13,16 +13,15 @@
     // root.style.setProperty("--hue2", hue2);
 </script>
 
-<div class="box">
+<div class="box flex">
     <slot {hue1} {hue2} {hue3} />
 </div>
 
 <style>
     .box {
-        min-width: 3rem;
         width: 100%;
         height: 100%;
-        gap: 0;
+        flex: 1;
         padding: 0;
         /* background: linear-gradient(90deg, hsla(var(--hue1), 50%, 50%, 1), hsla(var(--hue2), 50%, 50%, 1) 100%); */
     }

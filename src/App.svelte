@@ -5,8 +5,8 @@
   import Card from "./components/Card.svelte";
   import Box from "./components/Box.svelte";
 
-  let columns = 10;
-  let rows = 10;
+  let columns = 100;
+  let rows = 100;
 
 </script>
 
@@ -42,7 +42,7 @@
         <div class="flex card-col">
           {#each Array(rows) as row, i}
             <Box let:hue1 let:hue2 let:hue3>
-              <div class="box-color" style="background: linear-gradient({hue3}deg, hsla({hue1}, 50%, 50%, 1), hsla({hue2}, 50%, 50%, 1) 100%);"></div>
+              <div class="box-color flex" style="background: linear-gradient({hue3}deg, hsla({hue1}, 50%, 50%, 1), hsla({hue2}, 50%, 50%, 1) 100%);"></div>
             </Box>
           {/each}
         </div>
@@ -65,8 +65,7 @@
   .box-color {
     width: 100%;
     height: 100%;
-    min-height: 2rem;
-    min-width: 2rem;
+    flex: 1;
   }
   .buttons-wrapper {
     gap: 1rem;
@@ -98,17 +97,17 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    gap: 0.25rem;
+    /* gap: 0.25rem; */
     width: 80vw;
+    height: 60vh;
     overflow: hidden;
   }
   .card-col {
     display: flex;
     width: 100%;
-    height: 100%;
     flex-direction: column;
     align-items: center;
-    gap: 0.25rem;
+    /* gap: 0.25rem; */
     /* gap: 1rem; */
   }
   .flex {
