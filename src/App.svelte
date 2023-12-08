@@ -14,6 +14,9 @@
   <h1 class="banner-heading">Vite + Svelte + Kaya + Daddy</h1>
   <div class="flex flex-col">
     <div class="flex flex-col">
+      <div class="flex">
+        <div class="badge">columns: {columns}</div> <div class="badge">rows: {rows}</div>
+      </div>
       <div class="buttons-wrapper flex">
         <button
           type="button"
@@ -49,7 +52,13 @@
 </main>
 
 <style>
-
+.badge {
+  padding: .5rem;
+  margin: .5rem;
+  border-radius: 0.25rem;
+  background: #ccc;
+  color: white;
+}
   main {
     width: 80vw;
   }
@@ -108,6 +117,8 @@
 
   .flex-col {
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   .logo {
