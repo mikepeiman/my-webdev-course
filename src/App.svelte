@@ -5,9 +5,8 @@
   import Card from "./components/Card.svelte";
   import Box from "./components/Box.svelte";
 
-  let columns = 100;
-  let rows = 100;
-
+  let columns = 30;
+  let rows = 30;
 </script>
 
 <main class="flex flex-col">
@@ -15,34 +14,41 @@
   <div class="flex flex-col">
     <div class="flex flex-col">
       <div class="flex">
-        <div class="badge">columns: {columns}</div> <div class="badge">rows: {rows}</div>
+        <div class="badge">columns: {columns}</div>
+        <div class="badge">rows: {rows}</div>
       </div>
       <div class="buttons-wrapper flex">
-        <button
-          type="button"
-          class="button-add"
-          on:click={() => (columns = columns + 1)}>Add column</button>
-        <button
-          type="button"
-          class="button-add"
-          on:click={() => (rows = rows + 1)}>Add Row</button>
-
-        <button
-          type="button"
-          class="button-remove"
-          on:click={() => (columns = columns - 1)}>Remove column</button>
-        <button
-          type="button"
-          class="button-remove"
-          on:click={() => (rows = rows - 1)}>Remove Row</button>
+        <div class="buttons-inner">
+          <button
+            type="button"
+            class="button-add"
+            on:click={() => (columns = columns + 1)}>Add column</button>
+            <button
+              type="button"
+              class="button-remove"
+              on:click={() => (columns = columns - 1)}>Remove column</button>
+        </div>
+        <div class="buttons-inner">
+          <button
+            type="button"
+            class="button-add"
+            on:click={() => (rows = rows + 1)}>Add Row</button>
+          <button
+            type="button"
+            class="button-remove"
+            on:click={() => (rows = rows - 1)}>Remove Row</button>
+        </div>
       </div>
     </div>
-    <div class="flex card-row">
+    <div class="flex grid-area">
       {#each Array(columns) as column}
         <div class="flex card-col">
           {#each Array(rows) as row, i}
-            <Box let:hue1 let:hue2 let:hue3>
-              <div class="box-color flex" style="background: linear-gradient({hue3}deg, hsla({hue1}, 50%, 50%, 1), hsla({hue2}, 50%, 50%, 1) 100%);"></div>
+            <Box let:hue1 let:hue2 let:hue3 let:alpha>
+              <div
+                class="box-color flex"
+                style="background: linear-gradient({hue3}deg, hsla({hue1}, 50%, 50%, {alpha}), hsla({hue2}, 50%, 50%, .5) 100%);">
+              </div>
             </Box>
           {/each}
         </div>
@@ -52,19 +58,29 @@
 </main>
 
 <style>
-.badge {
-  padding: .5rem;
-  margin: .5rem;
-  border-radius: 0.25rem;
-  background: #ccc;
-  color: white;
-}
   main {
-    width: 80vw;
+    /* max-width: 80vw; */
+    width: 1280px;
+  }
+  .grid-area {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* gap: 0.25rem; */
+    max-width: 1280px;
+    width: 100%;
+    height: 60vh;
+    overflow: hidden;
+  }
+
+  .badge {
+    padding: 0.5rem;
+    margin: 0.5rem;
+    border-radius: 0.25rem;
+    background: #ccc;
+    color: white;
   }
   .box-color {
-    width: 100%;
-    height: 100%;
     flex: 1;
   }
   .buttons-wrapper {
@@ -73,14 +89,18 @@
     justify-content: center;
     align-items: center;
   }
+  .buttons-inner {
+    display: flex;;
+    flex-direction: column;
+  }
   .button-add {
-    background: linear-gradient(90deg, #0042f5 0%, #0056c9 100%);
+    background: linear-gradient(90deg, #00f2f5 0%, #0056c9 100%);
     color: white;
     padding: 1.25rem;
     border-radius: 0.25rem;
   }
   .button-remove {
-    background: linear-gradient(90deg, #af5500 0%, #8f2f00 100%);
+    background: linear-gradient(270deg, #7f5500 0%, #cfcf00 100%);
     color: white;
     padding: 1.25rem;
     border-radius: 0.25rem;
@@ -91,16 +111,7 @@
     margin: 0;
     padding: 3rem;
     /* cool tasteful gradient */
-    background: linear-gradient(90deg, #00c9ff 0%, #92fe9d 100%);
-  }
-  .card-row {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    /* gap: 0.25rem; */
-    width: 80vw;
-    height: 60vh;
-    overflow: hidden;
+    background: linear-gradient(90deg, #00f2f5 0%, #cfcf00 100%);
   }
   .card-col {
     display: flex;
@@ -118,6 +129,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
   }
 
   .logo {
