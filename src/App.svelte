@@ -7,6 +7,7 @@
 
   let columns = 3;
   let rows = 2;
+
 </script>
 
 <main class="flex flex-col">
@@ -36,8 +37,10 @@
     <div class="flex card-row">
       {#each Array(columns) as column}
         <div class="flex card-col">
-          {#each Array(rows) as row}
-            <Box />
+          {#each Array(rows) as row, i}
+            <Box let:hue1 let:hue2>
+              <div class="box-color" style="background: linear-gradient(90deg, hsla({hue1}, 50%, 50%, 1), hsla({hue2}, 50%, 50%, 1) 100%);"></div>
+            </Box>
           {/each}
         </div>
       {/each}
@@ -50,8 +53,14 @@
   main {
     width: 80vw;
   }
+  .box-color {
+    width: 100%;
+    height: 100%;
+    min-height: 2rem;
+    min-width: 2rem;
+  }
   .buttons-wrapper {
-    gap: 1rem;
+    /* gap: 1rem; */
     padding: 1rem;
     justify-content: center;
     align-items: center;
@@ -90,7 +99,7 @@
     height: 100%;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    /* gap: 1rem; */
   }
   .flex {
     display: flex;
