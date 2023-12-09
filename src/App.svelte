@@ -4,7 +4,7 @@
   import Counter from "./lib/Counter.svelte";
   import Card from "./components/Card.svelte";
   import Box from "./components/Box.svelte";
-    import Layout from "./components/Layout.svelte";
+    import Layout from "./components/layout/Layout.svelte";
 
   let columns = 30;
   let rows = 30;

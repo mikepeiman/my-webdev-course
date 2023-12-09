@@ -1,9 +1,9 @@
 <script>
   import svelteLogo from "./assets/svelte.svg";
   import viteLogo from "/vite.svg";
-  import Counter from "./lib/Counter.svelte";
-  import Card from "./components/Card.svelte";
-  import Box from "./components/Box.svelte";
+  import Counter from "../lib/Counter.svelte";
+  import Card from "./Card.svelte";
+  import Box from "./Box.svelte";
 
   let columns = 30;
   let rows = 30;
