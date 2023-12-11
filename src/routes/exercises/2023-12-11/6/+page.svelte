@@ -66,10 +66,27 @@
 <style>
 	.demo-content {
 		position: relative;
-		width: 100%;
-		height: 100%;
-		overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+	color: #00f;
+	background: linear-gradient(45deg, hsla(330, 50%, 50%, 0.5), hsla(90, 50%, 50%, 0.5)), linear-gradient(45deg, hsla(0, 50%, 50%, 0.5), hsla(0, 50%, 51800%, 0.5));
+	background: #222;
+
+    height: 100%;
 	}
+
+	.demo-content svg polygon {
+		background: linear-gradient(45deg, hsla(130, 50%, 50%, 0.5), hsla(190, 50%, 50%, 0.5)), linear-gradient(45deg, hsla(0, 50%, 50%, 0.5), hsla(0, 50%, 51800%, 0.5));
+		fill: #111;
+		stroke: hsla(220, 100%, 50%, 1);
+		stroke-width: 2;
+		stroke-linejoin: round;
+		stroke-linecap: round;
+	} 
+	
 
 	.svg-attributes-demo {
 		display: flex;
@@ -90,4 +107,4 @@
 		stroke-linecap: round;
 	}
 
-	</style>
+	</style>	
