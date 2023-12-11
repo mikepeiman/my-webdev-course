@@ -30,6 +30,7 @@
 
 		context.arc(width / 2, height / 2, height / 4, speck.arc.start, speck.arc.end);
 		context.strokeStyle = '#af00f0';
+    
 		context.fillStyle = '#00acff';
 		context.lineWidth = 250;
 		context.stroke();
