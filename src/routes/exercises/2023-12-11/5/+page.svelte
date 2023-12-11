@@ -3,6 +3,11 @@
 	import anime from 'animejs';
 	// your script goes here
 
+	$: hue1 = anime.random(0, 360);
+	$: hue2 = anime.random(0, 360);
+	$: hue3 = anime.random(0, 360);
+	$: hue4 = anime.random(0, 360);
+	$: hue5 = anime.random(0, 360);
 	onMount(() => {
 		function fitElementToParent(el, padding) {
 			var timeout = null;
@@ -32,12 +37,12 @@
 			var breathAnimation = anime({
 				begin: function () {
 					for (var i = 0; i < pathLength; i++) {
-						let hue1 = anime.random(0, 360);
-						let hue2 = anime.random(0, 360);
+						hue1 = anime.random(0, 360);
+						hue2 = anime.random(0, 360);
 						aimations.push(
 							anime({
 								targets: spherePathEls[i],
-								stroke: { value: [`hsl(${hue1},75%,75%)`, `hsl(${hue2},75%,75%)`], duration: 500 },
+								stroke: { value: [`hsl(${hue1},100%,75%)`, `hsl(${hue2},75%,35%)`], duration: 500 },
 								translateX: [2, -4],
 								translateY: [2, -4],
 								easing: 'easeOutQuad',
@@ -56,6 +61,16 @@
 				autoplay: false
 			});
 
+			let hexMouthAnimation = anime({
+				targets: ['.svg-attributes-demo polygon', 'feTurbulence', 'feDisplacementMap'],
+				points: '64 128 8.574 96 8.574 32 64 0 119.426 32 119.426 96',
+				baseFrequency: 0,
+				scale: 1,
+				loop: true,
+				direction: 'alternate',
+				easing: 'easeInOutExpo'
+			});
+
 			var introAnimation = anime
 				.timeline({
 					autoplay: false
@@ -65,7 +80,7 @@
 						targets: spherePathEls,
 						strokeDashoffset: {
 							value: [anime.setDashoffset, 0],
-							duration: 3900,
+							duration: 9000,
 							easing: 'easeInOutCirc',
 							delay: anime.stagger(190, { direction: 'reverse' })
 						},
@@ -83,7 +98,7 @@
 					x2: '25%',
 					y1: '0%',
 					y2: '75%',
-					duration: 30000,
+					duration: 3000,
 					easing: 'easeOutQuint',
 					autoplay: false
 				},
@@ -93,6 +108,7 @@
 			function init() {
 				introAnimation.play();
 				breathAnimation.play();
+				hexMouthAnimation.play();
 				shadowAnimation.play();
 			}
 
@@ -189,29 +205,30 @@
 	}
 
 	.animation-wrapper {
-		width: 50%;
-		padding-bottom: 50%;
+		/* width: 50%; */
+		/* padding-bottom: 50%; */
+		padding: 5rem;
 	}
 
 	.sphere-animation {
 		position: absolute;
 		top: 50%;
 		left: 50%;
-		width: 580px;
-		height: 580px;
-		margin: -290px 0 0 -290px;
+		width: 80%;
+		height: 80%;
+		margin: -40% 0 0 -40%;
 	}
 
 	.sphere path {
 		fill: url(#sphereGradient);
-		stroke-width: 1px;
+		stroke-width: 15px;
 		stroke: rgba(80, 80, 80, 0.35);
 		backface-visibility: hidden;
 	}
 
 	@media (min-width: 500px) {
 		.sphere path {
-			stroke-width: 0.4px;
+			stroke-width: 0.5px;
 		}
 	}
 </style>
