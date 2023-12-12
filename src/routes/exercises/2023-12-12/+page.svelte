@@ -64,29 +64,33 @@
 </div>
 
 <style>
+	:global(#page-content) {
+		height: calc(100vh - 5rem);
+	}
 	.demo-content {
 		position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    width: 100%;
-	color: #00f;
-	background: linear-gradient(45deg, hsla(330, 50%, 50%, 0.5), hsla(90, 50%, 50%, 0.5)), linear-gradient(45deg, hsla(0, 50%, 50%, 0.5), hsla(0, 50%, 51800%, 0.5));
-	background: #222;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		text-align: center;
+		width: 100%;
+		color: #00f;
+		background: linear-gradient(45deg, hsla(330, 50%, 50%, 0.5), hsla(90, 50%, 50%, 0.5)),
+			linear-gradient(45deg, hsla(0, 50%, 50%, 0.5), hsla(0, 50%, 51800%, 0.5));
+		background: #222;
 
-    height: 100%;
+		height: 100%;
 	}
 
 	.demo-content svg polygon {
-		background: linear-gradient(45deg, hsla(130, 50%, 50%, 0.5), hsla(190, 50%, 50%, 0.5)), linear-gradient(45deg, hsla(0, 50%, 50%, 0.5), hsla(0, 50%, 51800%, 0.5));
+		background: linear-gradient(45deg, hsla(130, 50%, 50%, 0.5), hsla(190, 50%, 50%, 0.5)),
+			linear-gradient(45deg, hsla(0, 50%, 50%, 0.5), hsla(0, 50%, 51800%, 0.5));
 		fill: #111;
-		stroke: hsla(20, 100%, 50%, 1);
-		stroke-width: 2;
+		stroke: hsla(200, 100%, 50%, 1);
+		stroke-width: 1;
 		stroke-linejoin: round;
 		stroke-linecap: round;
-	} 
-	
+	}
 
 	.svg-attributes-demo {
 		display: flex;
@@ -95,8 +99,8 @@
 	}
 
 	.svg-attributes-demo svg {
-		width: 100%;
-		height: 100%;
+		width: 50%;
+		height: 50%;
 	}
 
 	.svg-attributes-demo polygon {
@@ -106,5 +110,4 @@
 		stroke-linejoin: round;
 		stroke-linecap: round;
 	}
-
-	</style>	
+</style>
