@@ -1,10 +1,32 @@
+<script context="module">
+	// import fs from 'fs';
+	// import path from 'path';
+  
+	// // Get the directory of the pages
+	// const pagesDirectory = path.join(process.cwd(), './src/routes');
+  
+	// // Read the directory and filter out non-directory files
+	// const pages = fs.readdirSync(pagesDirectory).filter(file => {
+	//   return fs.statSync(path.join(pagesDirectory, file)).isDirectory();
+	// });
+  
+	// export const load = async () => {
+	//   return {
+	// 	props: {
+	// 	  pages
+	// 	}
+	//   };
+	// };
+  </script>
+
 <script lang="ts">
 	import '../app.postcss';
 	import { AppShell, AppBar } from '@skeletonlabs/skeleton';
-
+	
 	// Floating UI for Popups
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
+	// export let pages = [];
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 </script>
 
