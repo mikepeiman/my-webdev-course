@@ -1,10 +1,11 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-
+    import {Pane} from 'tweakpane';
 	export let data: PageData;
 	console.log(`🚀 ~ file: +page.svelte:5 ~ data:`, data)
 
     $: days = data.props.pages.filter(page => page !== '[slug]') 
+
 
 </script>
 

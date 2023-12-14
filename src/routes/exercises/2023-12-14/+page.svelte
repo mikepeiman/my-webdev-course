@@ -1,34 +1,41 @@
 <script>
 	import { onMount } from 'svelte';
 	import anime from 'animejs';
+	import { Pane } from 'tweakpane';
 	// your script goes here
 
 	let data = {
 		numHexes: 1
 	};
-
-	let OriginalHexPoints = [64, 72.7966439847248, 8.574, 99.71990269644712, 59.60362518986154, 65.18153205230828, 64, 3.7199026964471162, 68.39637481013845, 65.18153205230828, 119.426, 99.71990269644712]
-	$: newHexPoints = () => {
-		OriginalHexPoints.map((point, i) => {
-			if (i % 2 === 0) {
-				return point * data.numHexes
-			}
-			return point
-		})
-		return OriginalHexPoints	}
-	let settings = {
+	$: settings = {
 		targets: ['.svg-attributes-demo polygon', 'feTurbulence', 'feDisplacementMap'],
 		points: '64 128 8.574 96 8.574 32 64 0 119.426 32 119.426 96',
 		baseFrequency: 0,
 		scale: 1,
-		loop: false,
+		loop: PARAMS.loop,
 		direction: 'alternate',
 		easing: 'easeInOutExpo'
 	};
 
+
+
 	$: hue1 = Math.floor(Math.random() * 360);
 
+	
+	$: PARAMS = {
+		percentage: 100,
+		hitpoints: 50,
+		diamter: 50,
+		loop: false,
+		theme: 'dark'
+	};
+	
+	// `min` and `max`: slider
 	onMount(() => {
+		const pane = new Pane({
+			title: 'Parameters',
+			expanded: true
+		});
 		function fitElementToParent(el, padding) {
 			var timeout = null;
 			function resize() {
@@ -44,56 +51,54 @@
 			resize();
 			window.addEventListener('resize', resize);
 		}
-
+		
+		pane.addBinding(PARAMS, 'percentage', { min: 0, max: 100, step: 10 });
+		pane.addBinding(PARAMS, 'hitpoints', { min: 0, max: 100, step: 10 });
+		pane.addBinding(PARAMS, 'diamter', { min: 0, max: 100, step: 10 });
+		pane.addBinding(PARAMS, 'loop');
 		anime(settings);
-		adjustHexPositions();
+		
 	});
-
-	function adjustHexPositions() {
-		const hexes = document.querySelectorAll('.hex');
-		hexes.forEach((hex) => {
-			
-			
-			console.log(`🚀 ~ file: +page.svelte:47 ~ hexes.forEach ~ hex:`, hex)
-		})
-	}
 </script>
 
-<div >
-	<div class="demo-content align-center svg-attributes-demo">
-		<svg width="128" height="128" viewBox="0 0 128 128">
-			<filter id="displacementFilter">
-				<feTurbulence
-					type="turbulence"
-					baseFrequency="0.04649878370558896"
-					numOctaves="2"
-					result="turbulence"
-					style="transform: scale(1);"
-				/>
-				<feDisplacementMap
-					in2="turbulence"
-					in="SourceGraphic"
-					scale="14.019659437564908"
-					xChannelSelector="R"
-					yChannelSelector="G"
-				/>
-			</filter>
-			{#each Array(data.numHexes) as hex, i}
+<div>
+	{#each Array(data.numHexes) as hex, i}
+		<div class="demo-content align-center svg-attributes-demo">
+			<svg width="100%" height="100%" viewBox="0 0 128 128">
+				<filter id="displacementFilter">
+					<feTurbulence
+						type="turbulence"
+						baseFrequency="0.04649878370558896"
+						numOctaves="2"
+						result="turbulence"
+						style="transform: scale(1);"
+					/>
+					<feDisplacementMap
+						in2="turbulence"
+						in="SourceGraphic"
+						scale="14.019659437564908"
+						xChannelSelector="R"
+						yChannelSelector="G"
+					/>
+				</filter>
 				<polygon
-				class="hex"
 					on:load={() => console.log(`hex ${i} loaded`)}
 					points="64 72.7966439847248 8.574 99.71990269644712 59.60362518986154 65.18153205230828 64 3.7199026964471162 68.39637481013845 65.18153205230828 119.426 99.71990269644712 "
-					style="filter: url(&quot;#displacementFilter&quot;); transform: scale(1);"
+					style="filter: url(&quot;#displacementFilter&quot;); transform: scale({PARAMS.percentage / 100});"
 					fill="hsla({hue1}, 50%, 50%, 0.5)"
 				/>
-			{/each}
-		</svg>
-	</div>
+			</svg>
+		</div>
+	{/each}
 </div>
 
 <style>
 	:global(#page-content) {
 		height: calc(100vh - 5rem);
+	}
+
+	:global(.tp-dfwv) {
+		top: 5rem !important;
 	}
 
 	.hex-grid {
