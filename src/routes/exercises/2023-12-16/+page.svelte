@@ -2,10 +2,7 @@
 	import { onMount } from 'svelte';
 	// tweakpane
 	import { Pane } from 'tweakpane';
-
-	$: cols = PARAMS.numHexesInCol;
-	$: console.log(`🚀 ~ file: +page.svelte:8 ~ cols: ${cols} rows: ${rows}`);
-	$: rows = PARAMS.numHexesInRow;
+	import { browser } from '$app/environment';
 
 	let hexGridCoordinates = [];
 
@@ -23,45 +20,57 @@
 		hexagonOpacity: 1
 	};
 
+	$: numRows = PARAMS.numHexesInCol.value;
+	$: console.log(`🚀 ~ file: +page.svelte:24 ~ numRows:`, numRows)
+	$: numCols = PARAMS.numHexesInRow.value;
+	$: console.log(`🚀 ~ file: +page.svelte:26 ~ numCols:`, numCols)
+	$: width = PARAMS.numHexesInRow * PARAMS.radius * 2 + PARAMS.hexagonSpacing + PARAMS.radius;
+	$: height = PARAMS.numHexesInCol * PARAMS.radius * 2 + PARAMS.hexagonSpacing + PARAMS.radius;
+
 	function initializePane() {
 		const pane = new Pane();
 
-		let numRows = pane.addBinding(PARAMS, 'numHexesInCol', {
+		let paneRows = pane.addBinding(PARAMS, 'numHexesInCol', {
 			min: 3,
 			max: 30,
 			step: 1
 		});
 
-		let numCols = pane.addBinding(PARAMS, 'numHexesInRow', {
+		let paneCols = pane.addBinding(PARAMS, 'numHexesInRow', {
 			min: 3,
 			max: 30,
 			step: 1
 		});
 
-		numCols.on('change', (value) => {
-			PARAMS.numHexesInRow = value;
-			console.log(`🚀 ~ file: +page.svelte:52 ~ numCols.on ~ value:`, value);
+		paneCols.on('change', (value) => {
+			paneCols = PARAMS.numHexesInRow = value;
+			console.log(`🚀 ~ file: +page.svelte:52 ~ paneCols.on ~ value:`, value);
 			hexGridCoordinates = generateHexGridCoordinates(
 				PARAMS.radius,
 				PARAMS.centerX,
 				PARAMS.centerY,
-				PARAMS.numHexesInCol,
-				PARAMS.numHexesInRow
+				numRows,
+				numCols
 			);
-			drawAllHexes();
+			let svg = getSvg();
+
+			drawAllHexes(svg);
 		});
 
-		numRows.on('change', (value) => {
+		paneRows.on('change', (value) => {
 			PARAMS.numHexesInCol = value;
-			console.log(`🚀 ~ file: +page.svelte:52 ~ numCols.on ~ value:`, value);
+			console.log(`🚀 ~ file: +page.svelte:52 ~ paneCols.on ~ value:`, value);
 			hexGridCoordinates = generateHexGridCoordinates(
 				PARAMS.radius,
 				PARAMS.centerX,
 				PARAMS.centerY,
-				PARAMS.numHexesInCol,
-				PARAMS.numHexesInRow
+				numRows,
+				numCols
 			);
-			drawAllHexes();
+			let svg = getSvg();
+			console.log(`🚀 ~ file: +page.svelte:68 ~ paneRows.on ~ svg:`, svg);
+
+			drawAllHexes(svg);
 		});
 
 		// pane.addSeparator();
@@ -90,16 +99,19 @@
 		initializePane();
 		hexGridCoordinates = await generateHexGridCoordinates(
 			PARAMS.radius,
-			PARAMS.centerX,
-			PARAMS.centerY,
-			PARAMS.numHexesInCol,
-			PARAMS.numHexesInRow
+				PARAMS.centerX,
+				PARAMS.centerY,
+				numRows,
+				numCols
 		);
-		console.log(`🚀 ~ file: +page.svelte:75 ~ onMount ~ hexGridCoordinates:`, hexGridCoordinates);
-		drawAllHexes();
+		let svg = initSvg();
+		drawAllHexes(svg);
+		let hexGrid = document.getElementById('hexGrid');
+		hexGrid.appendChild(svg);
 	});
 
 	const generateHexGridCoordinates = (radius, centerX, centerY, cols, rows) => {
+		console.log(`🚀 ~ file: +page.svelte:112 ~ generateHexGridCoordinates ~ radius, centerX, centerY, cols, rows:`, radius, centerX, centerY, cols, rows)
 		// Create the hexagons coordinates array so they can all be drawn at once
 		hexGridCoordinates = [];
 		for (let i = 0; i < cols; i++) {
@@ -128,22 +140,26 @@
 		}
 		return hexGridCoordinates;
 	};
-
-	const drawAllHexes = () => {
-		let width = PARAMS.numHexesInRow * PARAMS.radius * 2 + PARAMS.hexagonSpacing + PARAMS.radius;
-		let height = PARAMS.numHexesInCol * PARAMS.radius * 2 + PARAMS.hexagonSpacing + PARAMS.radius;
+	const initSvg = () => {
 		const svgNS = 'http://www.w3.org/2000/svg';
 		let svg = document.createElementNS(svgNS, 'svg');
 		svg.setAttribute('width', width);
 		svg.setAttribute('height', height);
 		svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
 		svg.setAttribute('class', 'hex-grid-svg');
+		return svg;
+	};
+
+	const getSvg = () => {
+		return document.querySelector('.hex-grid-svg')
+			? document.querySelector('.hex-grid-svg')
+			: initSvg();
+	};
+
+	const drawAllHexes = (svg) => {
 		hexGridCoordinates.forEach((hex) => {
 			hex.draw(svg);
 		});
-
-		let hexGrid = document.getElementById('hexGrid');
-		hexGrid.appendChild(svg);
 	};
 
 	class Hexagon {
