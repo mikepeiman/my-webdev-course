@@ -1,5 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
+	// tweakpane
+	import { Pane } from 'tweakpane';
 
 	$: cols = PARAMS.numHexesInCol;
 	$: console.log(`🚀 ~ file: +page.svelte:8 ~ cols: ${cols} rows: ${rows}`);
@@ -11,8 +13,8 @@
 		radius: 20,
 		centerX: 40,
 		centerY: 40,
-		numHexesInRow: 8,
-		numHexesInCol: 8,
+		numHexesInRow: 12,
+		numHexesInCol: 12,
 		hexagonSpacing: 0,
 		hexagonColor: 'black',
 		hexagonStrokeColor: 'white',
@@ -20,6 +22,56 @@
 		hexagonStrokeOpacity: 1,
 		hexagonOpacity: 1
 	};
+
+	function initializePane() {
+		const pane = new Pane();
+
+		let numRows = pane.addBinding(PARAMS, 'numHexesInCol', {
+			min: 3,
+			max: 30,
+			step: 1
+		});
+
+		let numCols = pane.addBinding(PARAMS, 'numHexesInRow', {
+			min: 3,
+			max: 30,
+			step: 1
+		});
+
+		numCols.on('change', (value) => {
+			PARAMS.numHexesInRow = value;
+			console.log(`🚀 ~ file: +page.svelte:52 ~ numCols.on ~ value:`, value);
+			hexGridCoordinates = generateHexGridCoordinates(
+				PARAMS.radius,
+				PARAMS.centerX,
+				PARAMS.centerY,
+				PARAMS.numHexesInCol,
+				PARAMS.numHexesInRow
+			);
+			drawAllHexes();
+		});
+
+		numRows.on('change', (value) => {
+			PARAMS.numHexesInCol = value;
+			console.log(`🚀 ~ file: +page.svelte:52 ~ numCols.on ~ value:`, value);
+			hexGridCoordinates = generateHexGridCoordinates(
+				PARAMS.radius,
+				PARAMS.centerX,
+				PARAMS.centerY,
+				PARAMS.numHexesInCol,
+				PARAMS.numHexesInRow
+			);
+			drawAllHexes();
+		});
+
+		// pane.addSeparator();
+		// pane.addSepara
+	}
+
+	function exportPaneState() {
+		const state = pane.exportState();
+		console.log(state);
+	}
 
 	// Function to calculate the points of the hexagon
 	function calculateHexagonPoints(radius, centerX, centerY) {
@@ -35,6 +87,7 @@
 		return pointString;
 	}
 	onMount(async () => {
+		initializePane();
 		hexGridCoordinates = await generateHexGridCoordinates(
 			PARAMS.radius,
 			PARAMS.centerX,
@@ -48,7 +101,6 @@
 
 	const generateHexGridCoordinates = (radius, centerX, centerY, cols, rows) => {
 		// Create the hexagons coordinates array so they can all be drawn at once
-		let newCenterX = centerX + radius;
 		hexGridCoordinates = [];
 		for (let i = 0; i < cols; i++) {
 			for (let j = 0; j < rows; j++) {
@@ -57,7 +109,7 @@
 					const hex = new Hexagon(
 						radius,
 						(centerX + PARAMS.hexagonSpacing) * (j + 1) + radius,
-						(centerY + PARAMS.hexagonSpacing) * (i + 1),
+						(centerY + PARAMS.hexagonSpacing) * (i + 1) - radius,
 						i,
 						j
 					);
@@ -66,7 +118,7 @@
 					const hex = new Hexagon(
 						radius,
 						(centerX + PARAMS.hexagonSpacing) * (j + 1),
-						(centerY + PARAMS.hexagonSpacing) * (i + 1),
+						(centerY + PARAMS.hexagonSpacing) * (i + 1) - radius,
 						i,
 						j
 					);
@@ -123,6 +175,9 @@
 <div id="hexGrid" />
 
 <style>
+	:global(.tp-dfwv) {
+		top: 5rem !important;
+	}
 	#hexGrid {
 		width: 100%;
 		height: 100%;
