@@ -20,6 +20,8 @@ const config = {
 
 		alias: {
 			'$components': './src/components',
+			'$stores': './src/stores',
+			'$utils': './src/lib/utils',
 		},
 	}
 };

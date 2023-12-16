@@ -1,12 +1,24 @@
 <script>
 	import { onMount } from 'svelte';
+	// import { data } from './data';
 	// tweakpane
 	import { Pane } from 'tweakpane';
 	import { browser } from '$app/environment';
+	import CanvasManager from '$components/CanvasManager.svelte';
+	import Slider from '$components/Slider.svelte';
+	import Settings from '$components/Settings.svelte';
+	import { get } from 'svelte/store';
 
 	let hexGridCoordinates = [];
 
-	let PARAMS = {
+	$: hexesInColumns = PARAMS?.numHexesInCol | 6;
+	$: console.log(`🚀 ~ file: +page.svelte:27 ~ hexesInColumns:`, hexesInColumns);
+	$: hexesInRows = PARAMS?.numHexesInRow | 6;
+	$: console.log(`🚀 ~ file: +page.svelte:30 ~ hexesInRows:`, hexesInRows);
+	$: hexPointsArray = []
+	$: console.log(`🚀 ~ file: +page.svelte:18 ~ hexPointsArray:`, hexPointsArray)
+	
+	$: PARAMS = {
 		radius: 20,
 		centerX: 40,
 		centerY: 40,
@@ -19,61 +31,63 @@
 		hexagonStrokeOpacity: 1,
 		hexagonOpacity: 1
 	};
-
-	$: numRows = PARAMS.numHexesInCol.value;
-	$: console.log(`🚀 ~ file: +page.svelte:24 ~ numRows:`, numRows)
-	$: numCols = PARAMS.numHexesInRow.value;
-	$: console.log(`🚀 ~ file: +page.svelte:26 ~ numCols:`, numCols)
+	$: hexWidth  = getHexWidth();
 	$: width = PARAMS.numHexesInRow * PARAMS.radius * 2 + PARAMS.hexagonSpacing + PARAMS.radius;
 	$: height = PARAMS.numHexesInCol * PARAMS.radius * 2 + PARAMS.hexagonSpacing + PARAMS.radius;
 
 	function initializePane() {
 		const pane = new Pane();
 
-		let paneRows = pane.addBinding(PARAMS, 'numHexesInCol', {
-			min: 3,
-			max: 30,
-			step: 1
-		});
+		// let paneRows = pane.addBinding(PARAMS, 'numHexesInCol', {
+		// 	min: 3,
+		// 	max: 30,
+		// 	step: 1
+		// });
 
-		let paneCols = pane.addBinding(PARAMS, 'numHexesInRow', {
-			min: 3,
-			max: 30,
-			step: 1
-		});
+		// let paneCols = pane.addBinding(PARAMS, 'numHexesInRow', {
+		// 	min: 3,
+		// 	max: 30,
+		// 	step: 1
+		// });
 
-		paneCols.on('change', (value) => {
-			paneCols = PARAMS.numHexesInRow = value;
-			console.log(`🚀 ~ file: +page.svelte:52 ~ paneCols.on ~ value:`, value);
-			hexGridCoordinates = generateHexGridCoordinates(
-				PARAMS.radius,
-				PARAMS.centerX,
-				PARAMS.centerY,
-				numRows,
-				numCols
-			);
-			let svg = getSvg();
-			drawAllHexes(svg);
-		});
+		// paneCols.on('change', (value) => {
+		// 	hexesInRows = PARAMS.numHexesInRow = value;
+		// 	console.log(`🚀 ~ file: +page.svelte:52 ~ paneCols.on ~ value:`, value);
+		// 	hexGridCoordinates = generateHexGridCoordinates(
+		// 		PARAMS.radius,
+		// 		PARAMS.centerX,
+		// 		PARAMS.centerY,
+		// 		hexesInColumns,
+		// 		hexesInRows
+		// 	);
+		// 	let svg = getSvg();
+		// 	drawAllHexes(svg);
+		// });
 
-		paneRows.on('change', (value) => {
-			PARAMS.numHexesInCol = value;
-			console.log(`🚀 ~ file: +page.svelte:52 ~ paneCols.on ~ value:`, value);
-			hexGridCoordinates = generateHexGridCoordinates(
-				PARAMS.radius,
-				PARAMS.centerX,
-				PARAMS.centerY,
-				numRows,
-				numCols
-			);
-			let svg = getSvg();
-			console.log(`🚀 ~ file: +page.svelte:68 ~ paneRows.on ~ svg:`, svg);
+		// paneRows.on('change', (value) => {
+		// 	hexesInColumns = PARAMS.numHexesInCol = value;
+		// 	console.log(`🚀 ~ file: +page.svelte:52 ~ paneCols.on ~ value:`, value);
+		// 	hexGridCoordinates = generateHexGridCoordinates(
+		// 		PARAMS.radius,
+		// 		PARAMS.centerX,
+		// 		PARAMS.centerY,
+		// 		hexesInColumns,
+		// 		hexesInRows
+		// 	);
+		// 	let svg = getSvg();
+		// 	console.log(`🚀 ~ file: +page.svelte:68 ~ paneRows.on ~ svg:`, svg);
 
-			drawAllHexes(svg);
-		});
+		// 	drawAllHexes(svg);
+		// });
 
 		// pane.addSeparator();
 		// pane.addSepara
+	}
+
+	function onChange(e) {
+		console.log('change');
+		console.log(`🚀 ~ file: index.svelte ~ line 194 ~ onChange ~ e`, e.detail);
+		// canvasRedraw();
 	}
 
 	function exportPaneState() {
@@ -81,9 +95,31 @@
 		console.log(state);
 	}
 
+	function getHexWidth() {
+		let xpoints = [];
+		// iterate through the array Pointstring and collect all odd values into xpoints
+		// and all even values into ypoints
+		if (hexPointsArray.length === 0) {
+			calculateHexagonPoints(PARAMS.radius, PARAMS.centerX, PARAMS.centerY);
+		}
+		for (let i = 0; i < hexPointsArray.length; i++) {
+
+				let x = Number(hexPointsArray[i].split(',')[0]);
+				console.log(`🚀 ~ file: +page.svelte:104 ~ getHexWidth ~ x:`, x)
+				console.log(`🚀 ~ file: +page.svelte:102 ~ getHexWidth ~ hexPointsArray[i]:`, hexPointsArray[i])
+				xpoints.push(x);
+		}
+
+		let xmax = Math.max(...xpoints);
+		let xmin = Math.min(...xpoints);
+		let xwidth = xmax - xmin;
+		return xwidth;
+	}
+
 	// Function to calculate the points of the hexagon
 	function calculateHexagonPoints(radius, centerX, centerY) {
 		let points = [];
+
 		for (let i = 0; i < 6; i++) {
 			const angle = Math.PI / 6 + (Math.PI / 3) * i;
 			const x = centerX + radius * Math.cos(angle);
@@ -91,17 +127,19 @@
 			points.push(`${x},${y}`);
 		}
 		let pointString = points.join(' ');
-		// console.log(`🚀 ~ file: +page.svelte:42 ~ calculateHexagonPoints ~ pointString:`, pointString);
+		hexPointsArray = points;
+
+		console.log(`🚀 ~ file: +page.svelte:42 ~ calculateHexagonPoints ~ pointString:`, pointString);
 		return pointString;
 	}
 	onMount(async () => {
 		initializePane();
 		hexGridCoordinates = await generateHexGridCoordinates(
 			PARAMS.radius,
-				PARAMS.centerX,
-				PARAMS.centerY,
-				numRows,
-				numCols
+			PARAMS.centerX,
+			PARAMS.centerY,
+			hexesInColumns,
+			hexesInRows
 		);
 		let svg = initSvg();
 		drawAllHexes(svg);
@@ -110,15 +148,22 @@
 	});
 
 	const generateHexGridCoordinates = (radius, centerX, centerY, cols, rows) => {
-		console.log(`🚀 ~ file: +page.svelte:112 ~ generateHexGridCoordinates ~ radius, centerX, centerY, cols, rows:`, radius, centerX, centerY, cols, rows)
+		console.log(
+			`🚀 ~ file: +page.svelte:112 ~ generateHexGridCoordinates ~ radius, centerX, centerY, cols, rows:`,
+			radius,
+			centerX,
+			centerY,
+			cols,
+			rows
+		);
 		// Create the hexagons coordinates array so they can all be drawn at once
 		hexGridCoordinates = [];
-		for (let i = 0; i < cols; i++) {
-			for (let j = 0; j < rows; j++) {
+		for (let i = 0; i < hexesInColumns; i++) {
+			for (let j = 0; j < hexesInRows; j++) {
 				// if odd row, offset x
 				if (i % 2 === 1) {
 					const hex = new Hexagon(
-						radius,
+						hexWidth,
 						(centerX + PARAMS.hexagonSpacing) * (j + 1) + radius,
 						(centerY + PARAMS.hexagonSpacing) * (i + 1) - radius,
 						i,
@@ -143,7 +188,9 @@
 		const svgNS = 'http://www.w3.org/2000/svg';
 		let svg = document.createElementNS(svgNS, 'svg');
 		svg.setAttribute('width', width);
+		console.log(`🚀 ~ file: +page.svelte:156 ~ initSvg ~ width:`, width);
 		svg.setAttribute('height', height);
+		console.log(`🚀 ~ file: +page.svelte:158 ~ initSvg ~ height:`, height);
 		svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
 		svg.setAttribute('class', 'hex-grid-svg');
 		return svg;
@@ -158,6 +205,7 @@
 	const drawAllHexes = (svg) => {
 		hexGridCoordinates.forEach((hex) => {
 			hex.draw(svg);
+			// console.log(`🚀 ~ file: +page.svelte:174 ~ hexGridCoordinates.forEach ~ hex:`, hex);
 		});
 	};
 
@@ -188,6 +236,14 @@
 </script>
 
 <div id="hexGrid" />
+
+<Settings >
+	<div slot="rightpanel">
+		<CanvasManager {PARAMS} on:change={onChange}>
+
+		</CanvasManager>
+	</div>
+</Settings>
 
 <style>
 	:global(.tp-dfwv) {
