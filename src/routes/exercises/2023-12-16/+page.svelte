@@ -148,8 +148,9 @@
 
 	}
 
+
 	:global(.hex:hover) {
-		fill: red;
+		fill: hsla(205, 100%, 50%, 0.75);
 		cursor: pointer;
 	}
 
