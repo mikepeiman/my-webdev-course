@@ -53,7 +53,6 @@
 				numCols
 			);
 			let svg = getSvg();
-
 			drawAllHexes(svg);
 		});
 
