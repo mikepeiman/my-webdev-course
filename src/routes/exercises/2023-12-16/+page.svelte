@@ -20,8 +20,6 @@
 	
 	$: PARAMS = {
 		radius: 20,
-		centerX: 40,
-		centerY: 40,
 		numHexesInRow: 12,
 		numHexesInCol: 12,
 		hexagonSpacing: 0,
@@ -31,8 +29,10 @@
 		hexagonStrokeOpacity: 1,
 		hexagonOpacity: 1
 	};
+
+	$: centerX = 0;
+	$: centerY = 0;
 	$: hexGrid_X_Points = [];
-	$: console.log(`🚀 ~ file: +page.svelte:35 ~ hexGrid_X_Points:`, hexGrid_X_Points)
 	$: hexWidth  = getHexWidth();
 	$: width = PARAMS.numHexesInRow * PARAMS.radius * 2 + PARAMS.hexagonSpacing + PARAMS.radius;
 	$: height = PARAMS.numHexesInCol * PARAMS.radius * 2 + PARAMS.hexagonSpacing + PARAMS.radius;
@@ -57,8 +57,8 @@
 		// 	console.log(`🚀 ~ file: +page.svelte:52 ~ paneCols.on ~ value:`, value);
 		// 	hexGridCoordinates = generateHexGridCoordinates(
 		// 		PARAMS.radius,
-		// 		PARAMS.centerX,
-		// 		PARAMS.centerY,
+		// 		CenterX,
+		// 		CenterY,
 		// 		hexesInColumns,
 		// 		hexesInRows
 		// 	);
@@ -71,8 +71,8 @@
 		// 	console.log(`🚀 ~ file: +page.svelte:52 ~ paneCols.on ~ value:`, value);
 		// 	hexGridCoordinates = generateHexGridCoordinates(
 		// 		PARAMS.radius,
-		// 		PARAMS.centerX,
-		// 		PARAMS.centerY,
+		// 		CenterX,
+		// 		CenterY,
 		// 		hexesInColumns,
 		// 		hexesInRows
 		// 	);
@@ -102,7 +102,7 @@
 		// iterate through the array Pointstring and collect all odd values into xpoints
 		// and all even values into ypoints
 		if (hexPointsArray.length === 0) {
-			calculateHexagonPoints(PARAMS.radius, PARAMS.centerX, PARAMS.centerY);
+			calculateHexagonPoints(PARAMS.radius, centerX, centerY);
 		}
 		for (let i = 0; i < hexPointsArray.length; i++) {
 
@@ -138,9 +138,9 @@
 	onMount(async () => {
 		initializePane();
 		hexGridCoordinates = await generateHexGridCoordinates(
-			hexWidth,
-			PARAMS.centerX,
-			PARAMS.centerY,
+			PARAMS.radius,
+			centerX,
+			centerY,
 			hexesInColumns,
 			hexesInRows
 		);
@@ -168,8 +168,8 @@
 				if (i % 2 === 1) {
 					const hex = new Hexagon(
 						radius,
-						(centerX + PARAMS.hexagonSpacing) * (j + 1)+ radius,
-						(centerY + PARAMS.hexagonSpacing) * (i + 1) ,
+						(centerX + PARAMS.hexagonSpacing + hexWidth) * (j + 1) + hexWidth / 2,
+						(centerY + PARAMS.hexagonSpacing + radius) * (i + 1) ,
 						i,
 						j
 					);
@@ -178,8 +178,8 @@
 				} else {
 					const hex = new Hexagon(
 						radius,
-						(centerX + PARAMS.hexagonSpacing) * (j + 1),
-						(centerY + PARAMS.hexagonSpacing) * (i + 1) ,
+						(centerX + PARAMS.hexagonSpacing + hexWidth) * (j + 1),
+						(centerY + PARAMS.hexagonSpacing + radius ) * (i + 1),
 						i,
 						j
 					);
