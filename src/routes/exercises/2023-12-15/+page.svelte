@@ -51,6 +51,10 @@
 		hexGridCoordinates = [];
 		for (let i = 0; i < cols; i++) {
 			for (let j = 0; j < rows; j++) {
+				// if odd row, offset x
+				// if (j % 2 === 1) {
+				// 	centerX = centerX + radius;
+				// }
 				const hex = new Hexagon(
 					radius,
 					(centerX + PARAMS.hexagonSpacing)  * (j + 1),
@@ -72,7 +76,7 @@
 		svg.setAttribute('width', width);
 		svg.setAttribute('height', height);
 		svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
-
+		svg.setAttribute('class', 'hex-grid-svg');
 		hexGridCoordinates.forEach((hex) => {
 			hex.draw(svg);
 		});
@@ -139,5 +143,14 @@
 	:global(.hex:hover) {
 		fill: red;
 		cursor: pointer;
+	}
+
+	:global(.hex-grid-svg) {
+		width: 100%;
+		height: 100%;
+		width: 80vw;
+		height: 80vh;
+		border: 5pm solid black;
+		padding: 1rem;
 	}
 </style>
