@@ -31,6 +31,8 @@
 		hexagonStrokeOpacity: 1,
 		hexagonOpacity: 1
 	};
+	$: hexGrid_X_Points = [];
+	$: console.log(`🚀 ~ file: +page.svelte:35 ~ hexGrid_X_Points:`, hexGrid_X_Points)
 	$: hexWidth  = getHexWidth();
 	$: width = PARAMS.numHexesInRow * PARAMS.radius * 2 + PARAMS.hexagonSpacing + PARAMS.radius;
 	$: height = PARAMS.numHexesInCol * PARAMS.radius * 2 + PARAMS.hexagonSpacing + PARAMS.radius;
@@ -113,6 +115,7 @@
 		let xmax = Math.max(...xpoints);
 		let xmin = Math.min(...xpoints);
 		let xwidth = xmax - xmin;
+		console.log(`🚀 ~ file: +page.svelte:116 ~ getHexWidth ~ xwidth:`, xwidth)
 		return xwidth;
 	}
 
@@ -135,7 +138,7 @@
 	onMount(async () => {
 		initializePane();
 		hexGridCoordinates = await generateHexGridCoordinates(
-			PARAMS.radius,
+			hexWidth,
 			PARAMS.centerX,
 			PARAMS.centerY,
 			hexesInColumns,
@@ -158,27 +161,30 @@
 		);
 		// Create the hexagons coordinates array so they can all be drawn at once
 		hexGridCoordinates = [];
+		hexGrid_X_Points = [];
 		for (let i = 0; i < hexesInColumns; i++) {
 			for (let j = 0; j < hexesInRows; j++) {
 				// if odd row, offset x
 				if (i % 2 === 1) {
 					const hex = new Hexagon(
-						hexWidth,
-						(centerX + PARAMS.hexagonSpacing) * (j + 1) + radius,
-						(centerY + PARAMS.hexagonSpacing) * (i + 1) - radius,
+						radius,
+						(centerX + PARAMS.hexagonSpacing) * (j + 1)+ radius,
+						(centerY + PARAMS.hexagonSpacing) * (i + 1) ,
 						i,
 						j
 					);
 					hexGridCoordinates.push(hex);
+					hexGrid_X_Points.push(hex.x);
 				} else {
 					const hex = new Hexagon(
 						radius,
 						(centerX + PARAMS.hexagonSpacing) * (j + 1),
-						(centerY + PARAMS.hexagonSpacing) * (i + 1) - radius,
+						(centerY + PARAMS.hexagonSpacing) * (i + 1) ,
 						i,
 						j
 					);
 					hexGridCoordinates.push(hex);
+					hexGrid_X_Points.push(hex.x);
 				}
 			}
 		}
