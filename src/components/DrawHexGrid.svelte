@@ -27,11 +27,10 @@
 		hexArray = generateHexArray(
 			PARAMS.radius,
 			firsthex.width.x,
-			firsthex.width.y * 3/4,
+			firsthex.width.y,
 			PARAMS.numHexesInRow,
 			PARAMS.numHexesInCol,
-			0,
-			0
+			"x"
 		);
 		console.log(`🚀 ~ file: DrawHexGrid.svelte:25 ~ onMount ~ hexArray:`, hexArray);
 	});
@@ -43,7 +42,7 @@
 			<polygon
 				points={hex.points}
                 class="hexagon"
-				style="fill:{PARAMS.hexagonColor};stroke:{PARAMS.hexagonStrokeColor};stroke-width:{PARAMS.hexagonStrokeWidth};fill-opacity:{PARAMS.hexagonOpacity};stroke-opacity:{PARAMS.hexagonStrokeOpacity}"
+				style="stroke: hsl({i + 30}, 50%, 50%); fill: hsl({i}, 50%, 50%); opacity: {PARAMS.hexagonOpacity}"
 			/>
 		{/each}
 	</svg>
@@ -55,12 +54,15 @@
     :global(.hexagon) {
         fill-opacity: 1;
         stroke-opacity: 1;
+        stroke: white;
+        fill: black;
+        transition: all 0.1s ease-in-out;
 
     }
     :global(.hexagon:hover) {
-        fill-opacity: 0.5;
+        fill-opacity: 0.25;
         stroke-opacity: 0.5;
         fill: cyan;
-        transition: all 0.2s ease-in-out;
+        transition: all 0.1s ease-in-out;
     }
 </style>

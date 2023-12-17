@@ -22,8 +22,8 @@
 		console.log('mounted');
 		let hex = calculateHexagonPoints(PARAMS.radius, 20, 20);
 		console.log(`🚀 ~ file: +page.svelte:24 ~ onMount ~ hex:`, hex);
-		GenerateHexGrid(hex.width.x, hex.width.y, PARAMS.numHexesInRow, PARAMS.numHexesInCol, true , false );
-		hexArray = generateHexArray(PARAMS.radius, hex.width.x, hex.width.y, PARAMS.numHexesInRow, PARAMS.numHexesInCol, 2, 1 );
+		GenerateHexGrid(hex.width.x, hex.width.y, PARAMS.numHexesInRow, PARAMS.numHexesInCol, "x" );
+		hexArray = generateHexArray(PARAMS.radius, hex.width.x, hex.width.y, PARAMS.numHexesInRow, PARAMS.numHexesInCol, "x" );
 		console.log(`🚀 ~ file: +page.svelte:27 ~ onMount ~ hexArray:`, hexArray)
 	});
 </script>
