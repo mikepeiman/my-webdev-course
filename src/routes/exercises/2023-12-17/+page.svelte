@@ -1,7 +1,5 @@
 <script>
 	import { onMount } from 'svelte';
-	// import { data } from './data';
-	// tweakpane
 	import { Pane } from 'tweakpane';
 	import { browser } from '$app/environment';
 	import CanvasManager from '$components/CanvasManager.svelte';
@@ -20,7 +18,7 @@
 	
 	$: PARAMS = {
 		radius: 20,
-		numHexesInRow: 12,
+		numHexesInRow: 6,
 		numHexesInCol: 12,
 		hexagonSpacing: 0,
 		hexagonColor: 'black',
@@ -169,7 +167,7 @@
 					const hex = new Hexagon(
 						radius,
 						(centerX + PARAMS.hexagonSpacing + hexWidth) * (j + 1) + hexWidth / 2,
-						(centerY + PARAMS.hexagonSpacing + radius / 2) * (i + 1) ,
+						(centerY + PARAMS.hexagonSpacing + radius) * (i + 1) ,
 						i,
 						j
 					);
