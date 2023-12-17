@@ -1,5 +1,5 @@
 export const calculateHexagonPoints = (radius, centerX, centerY) => {
-    console.log(`🚀 ~ file: CalculateHexPoints.js:2 ~ calculateHexagonPoints ~ radius, centerX, centerY:`, radius, centerX, centerY)
+    // console.log(`🚀 ~ file: CalculateHexPoints.js:2 ~ calculateHexagonPoints ~ radius, centerX, centerY:`, radius, centerX, centerY)
     let pointsString = ''
     let pointsArray = []
     let xPointsArrray = []
