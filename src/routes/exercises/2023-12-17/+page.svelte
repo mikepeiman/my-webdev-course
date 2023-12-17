@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
-	import {calculateHexagonPoints} from '$utils/CalculateHexPoints';
-
+	import { calculateHexagonPoints } from '$utils/CalculateHexPoints';
+	import { GenerateHexGrid } from '$utils/GenerateHexGrid';
 	let PARAMS = {
 		radius: 20,
 		numHexesInRow: 12,
@@ -16,16 +16,13 @@
 
 	onMount(() => {
 		console.log('mounted');
-		let hexGridCoordinates = calculateHexagonPoints(
-			PARAMS.radius,
-			20,
-			20,
-			)
-			console.log(`🚀 ~ file: +page.svelte:20 ~ onMount ~ hexGridCoordinates:`, hexGridCoordinates)
+		let hex = calculateHexagonPoints(PARAMS.radius, 20, 20);
+		console.log(`🚀 ~ file: +page.svelte:24 ~ onMount ~ hex:`, hex);
+		GenerateHexGrid(hex.width.x, hex.width.y, PARAMS.numHexesInRow, PARAMS.numHexesInCol, [0,0], [1,0] );
 	});
 </script>
 
-<canvas id="canvas"></canvas>
+<canvas id="canvas" />
 
 <style>
 </style>
