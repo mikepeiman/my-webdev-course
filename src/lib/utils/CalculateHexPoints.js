@@ -1,4 +1,5 @@
 export const calculateHexagonPoints = (radius, centerX, centerY) => {
+    console.log(`🚀 ~ file: CalculateHexPoints.js:2 ~ calculateHexagonPoints ~ radius, centerX, centerY:`, radius, centerX, centerY)
     let pointsString = ''
     let pointsArray = []
     let xPointsArrray = []
@@ -16,12 +17,8 @@ export const calculateHexagonPoints = (radius, centerX, centerY) => {
     }
 
     let hexWidthX = getHexWidth(xPointsArrray, 'x');
-
     let hexWidthY = getHexWidth(yPointsArrray, 'y');
-
     let hexWidth = getHexWidth(pointsArray, 'both');
-
-
     pointsString = pointsArray.join(' ')
 
     return {
@@ -31,11 +28,9 @@ export const calculateHexagonPoints = (radius, centerX, centerY) => {
             points: pointsString,
             pointsAsArray: pointsArray,
             pointsAsObject: pointsObject
-
     }
 
     function getHexWidth(pointsArray, axis) {
-
         let maxX, minX, widthX, maxY, minY, widthY
         switch (axis) {
             case 'x':
@@ -56,7 +51,6 @@ export const calculateHexagonPoints = (radius, centerX, centerY) => {
                     const [x, y] = point.split(',').map(Number);
                     return [x, y];
                 });
-
                 // break the array of numbers into separate arrays of x, y coordinates
                 let pointsArrayX = pointsArray.map(([x, y]) => x);
 
@@ -71,16 +65,8 @@ export const calculateHexagonPoints = (radius, centerX, centerY) => {
                 widthY = maxY - minY;
                 return { 'x': widthX, 'y': widthY }
             default:
-                return 0
+                return 0;
 
         }
-
-
-        let points = pointsArray
-        let max = Math.max(...points);
-        let min = Math.min(...points);
-        let width = max - min;
-
-        return width;
     }
 }
