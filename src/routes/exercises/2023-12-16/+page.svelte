@@ -169,7 +169,7 @@
 					const hex = new Hexagon(
 						radius,
 						(centerX + PARAMS.hexagonSpacing + hexWidth) * (j + 1) + hexWidth / 2,
-						(centerY + PARAMS.hexagonSpacing + radius / 2) * (i + 1) ,
+						(centerY + PARAMS.hexagonSpacing + radius) * (i + 1) ,
 						i,
 						j
 					);

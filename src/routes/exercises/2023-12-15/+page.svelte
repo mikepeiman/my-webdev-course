@@ -60,7 +60,8 @@
 					(centerX + PARAMS.hexagonSpacing)  * (j + 1),
 					(centerY + PARAMS.hexagonSpacing)  * (i + 1),
 					i,
-					j
+					j,
+					true
 				);
 				hexGridCoordinates.push(hex);
 			}
@@ -104,13 +105,14 @@
 	};
 
 	class Hexagon {
-		constructor(radius, centerX, centerY, col, row) {
+		constructor(radius, centerX, centerY, col, row, pointy) {
 			this.radius = radius;
 			this.centerX = centerX ;
 			this.centerY = centerY ;
 			this.col = col;
 			this.row = row;
-			this.points = calculateHexagonPoints(radius, centerX, centerY);
+			this.pointy = pointy;
+			this.points = calculateHexagonPoints(radius, centerX, centerY, pointy);
 		}
 
 		draw(svg) {

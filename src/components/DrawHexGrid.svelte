@@ -5,8 +5,8 @@
 	import { generateHexArray } from '$utils/GenerateHexGrid';
 	$: hexArray = [];
 
-	$: width = 400;
-	$: height = 400;
+	$: width = PARAMS.radius * 2 * PARAMS.numHexesInRow + PARAMS.radius
+	$: height = PARAMS.radius * 2 * PARAMS.numHexesInCol + PARAMS.radius;
 
 	let PARAMS = {
 		radius: 20,
@@ -22,12 +22,12 @@
 
 	onMount(() => {
 		console.log('mounted');
-		let firsthex = calculateHexagonPoints(PARAMS.radius, 20, 20);
+		let firsthex = calculateHexagonPoints(PARAMS.radius, 20, 20, false);
 		console.log(`🚀 ~ file: +page.svelte:24 ~ onMount ~ firsthex:`, firsthex);
 		hexArray = generateHexArray(
 			PARAMS.radius,
-			firsthex.width.x,
-			firsthex.width.y,
+			firsthex.width,
+			firsthex.height,
 			PARAMS.numHexesInRow,
 			PARAMS.numHexesInCol,
 			"x"

@@ -53,7 +53,7 @@ export const generateHexArray = (radius, width, height, rows, columns, offset) =
     hexagons.forEach((coord) => {
         // console.log(`🚀 ~ file: GenerateHexGrid.js:29 ~ hexagons.forEach ~ coord:`, coord)
         // console.log(`🚀 ~ file: GenerateHexGrid.js:31 ~ hexagons.forEach ~ radius, width * coord.row, height * coord.col:`, radius, width * coord.row, height * coord.col)
-        let hex = calculateHexagonPoints(radius, coord.x, coord.y, pointy);
+        let hex = calculateHexagonPoints(radius, coord.x + width / 2, coord.y + height / 2, coord.y, pointy);
         // console.log(`🚀 ~ file: GenerateHexGrid.js:31 ~ hexagons.forEach ~ hex:`, hex)
         hexArray.push({
             x: coord.x,
