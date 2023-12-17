@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { calculateHexagonPoints } from '$utils/CalculateHexPoints';
 	import { GenerateHexGrid } from '$utils/GenerateHexGrid';
+	import DrawHexGrid from '$components/DrawHexGrid.svelte';
 	let PARAMS = {
 		radius: 20,
 		numHexesInRow: 12,
@@ -23,6 +24,6 @@
 </script>
 
 <canvas id="canvas" />
-
+<DrawHexGrid />
 <style>
 </style>
