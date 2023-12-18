@@ -30,7 +30,7 @@
 			firsthex.height,
 			PARAMS.numHexesInRow,
 			PARAMS.numHexesInCol,
-			"x"
+			"y"
 		);
 		console.log(`🚀 ~ file: DrawHexGrid.svelte:25 ~ onMount ~ hexArray:`, hexArray);
 	});

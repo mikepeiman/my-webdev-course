@@ -8,7 +8,8 @@ export const calculateHexagonPoints = (radius, centerX, centerY, pointy) => {
     let pointsObject = {}
     let offsetAngle                
     console.log(`🚀 ~ file: CalculateHexPoints.js:10 ~ calculateHexagonPoints ~ pointy:`, pointy)
-    pointy == "true" ? offsetAngle = (Math.PI / 6) : offsetAngle = 0
+    pointy = true
+    pointy == true ? offsetAngle = (Math.PI / 6) : offsetAngle = 0
     console.log(`🚀 ~ file: CalculateHexPoints.js:10 ~ calculateHexagonPoints ~ offsetAngle:`, offsetAngle)
     for (let i = 0; i < 6; i++) {
         const angle = (Math.PI / 3) * i + offsetAngle;
