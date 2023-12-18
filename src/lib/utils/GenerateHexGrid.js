@@ -17,10 +17,10 @@ export const GenerateHexGrid = (width, height, rows, columns,offset) => {
             } else if (offset === "x" && row % 2 === 0) {
                 x = col * width + width / 2
             } else {
-                x = col * width  *.75;
+                x = col * width  + width / 2;
             }
     
-            if (offset === "x") {
+            if (offset === "y") {
                 y = row * height * 0.75;
             } else {
                 y = row * height;

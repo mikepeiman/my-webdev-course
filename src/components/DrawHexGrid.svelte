@@ -22,7 +22,7 @@
 
 	onMount(() => {
 		console.log('mounted');
-		let firsthex = calculateHexagonPoints(PARAMS.radius, 20, 20, false);
+		let firsthex = calculateHexagonPoints(PARAMS.radius, 40, 40, false);
 		console.log(`🚀 ~ file: +page.svelte:24 ~ onMount ~ firsthex:`, firsthex);
 		hexArray = generateHexArray(
 			PARAMS.radius,
