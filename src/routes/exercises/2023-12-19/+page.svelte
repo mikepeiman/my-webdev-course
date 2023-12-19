@@ -85,8 +85,9 @@
 	}
 	#canvas1 {
 		background-color: hsla(200, 50%, 10%, 0.6);
-		width: 100%;
-		height: 100%;
+		
+		width: calc(100vw - 5rem);
+		height: calc(100vh - 2.5rem);
 		display: flex;
 		justify-content: center;
 		align-items: center;

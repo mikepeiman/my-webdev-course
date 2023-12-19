@@ -14,3 +14,6 @@ Thinking about the process to develop a hex-grid-based game, as a learning path 
 - I want to implement an option to make it a pentagonal grid, with triangles filling in the gaps (polygons with 3 pairs of coords, matching the three intersecting vertices of the other n-polygon (pentagon or hexagon))
 
 2023-12-18 nothing really accomplished here
+
+2023-12-19
+- found a great tutorial about Svelte lifecycle and canvas, with a good component system to utilize canvas https://www.thisdot.co/blog/declarative-canvas-with-svelte
