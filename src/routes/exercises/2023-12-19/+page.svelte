@@ -18,8 +18,11 @@
 	};
 
 	$: svgs = [];
- const generateSvgs = () => {
-	let x_hexes = PARAMS.numHexesInRow;
+	$: width = window ? window.innerWidth : 0;
+	$: hexSize = width / PARAMS.numHexesInRow;
+	$: console.log(`🚀 ~ file: +page.svelte:23 ~ hexSize:`, hexSize);
+	const generateSvgs = () => {
+		let x_hexes = PARAMS.numHexesInRow;
 		let y_hexes = PARAMS.numHexesInCol;
 		let hex, x, y, svg;
 		hex = calculateHexagonPoints(PARAMS.radius, 34.64, 40, true);
@@ -38,9 +41,9 @@
 
 	onMount(() => {
 		console.log('mounted');
-		console.log(`🚀 ~ file: +page.svelte:43 ~ onMount ~ svgs:`, svgs)
+		console.log(`🚀 ~ file: +page.svelte:43 ~ onMount ~ svgs:`, svgs);
 		svgs = generateSvgs();
-		console.log(`🚀 ~ file: +page.svelte:43 ~ onMount ~ svgs:`, svgs)
+		console.log(`🚀 ~ file: +page.svelte:43 ~ onMount ~ svgs:`, svgs);
 		// generate a set of hexagons as individual svgs that fit perfectly side-by-side and can be used to create a grid
 	});
 
@@ -85,7 +88,7 @@
 	}
 	#canvas1 {
 		background-color: hsla(200, 50%, 10%, 0.6);
-		
+
 		width: calc(100vw - 5rem);
 		height: calc(100vh - 2.5rem);
 		display: flex;

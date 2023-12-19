@@ -30,8 +30,11 @@ export const calculateHexagonPoints = (radius, centerX, centerY, pointy) => {
     pointsString = pointsArray.join(' ')
 
     return {
+        x: centerX,
+        y: centerY,
         width: hexWidthX,
         height: hexWidthY,
+
         points: pointsString,
         pointsAsArray: pointsArray,
         pointsAsObject: pointsObject

@@ -40,5 +40,13 @@
     }
   </script>
 
-<canvas on:mousemove on:mouseleave bind:this={canvasElement} />
+<canvas id="canvas1" on:mousemove on:mouseleave bind:this={canvasElement} />
 <slot />
+
+<style>
+  #canvas1 {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+  }
+</style>
