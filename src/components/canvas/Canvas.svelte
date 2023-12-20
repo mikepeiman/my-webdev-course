@@ -38,9 +38,14 @@
       fnsToDraw.forEach((fn) => fn(ctx));
       frameId = requestAnimationFrame(() => draw(ctx))
     }
+
+    function registerMouseEvents(e) {
+      console.log(`🚀 ~ file: Canvas.svelte:43 ~ registerMouseEvents ~ e:`, e)
+      
+    }
   </script>
 
-<canvas id="canvas1" on:mousemove on:mouseleave bind:this={canvasElement} />
+<canvas id="canvas1" on:mousemove={registerMouseEvents} on:mouseleave={registerMouseEvents} bind:this={canvasElement} />
 <slot />
 
 <style>

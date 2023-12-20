@@ -1,7 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
 
-	import { each } from 'svelte/internal';
 	import Hex from '$components/canvas/Hex.svelte';
 
 	let hexArray = [];
