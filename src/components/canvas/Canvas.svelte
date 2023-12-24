@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount, setContext, onDestroy } from 'svelte';
 	import type { DrawFn } from './types';
-	let clearFrames = true;
+	export let clearFrames = true;
 	let frameId: number;
 	let canvasElement: HTMLCanvasElement;
 	let fnsToDraw = [] as DrawFn[];
@@ -28,7 +28,7 @@
 		let style_width = +getComputedStyle(canvasElement).getPropertyValue('width').slice(0, -2);
 		canvasElement.setAttribute('height', style_height * dpi);
 		canvasElement.setAttribute('width', style_width * dpi);
-		frameId = requestAnimationFrame(() => draw(ctx));
+		frameId = requestAnimationFrame(() => draw(ctx, clearFrames));
 	});
 
 	onDestroy(() => {
@@ -42,7 +42,7 @@
 			ctx.clearRect(0, 0, canvasElement.width, canvasElement.width);
 		}
 		fnsToDraw.forEach((fn) => fn(ctx));
-		frameId = requestAnimationFrame(() => draw(ctx));
+		frameId = requestAnimationFrame(() => draw(ctx, clearFrames));
 	}
 
 	function registerMouseEvents(e) {
