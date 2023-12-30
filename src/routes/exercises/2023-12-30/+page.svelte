@@ -1,98 +1,134 @@
 <script>
-	import { onDestroy, onMount } from 'svelte';
-	import Canvas from '$components/canvas/Canvas.svelte';
-	import Hex from '$components/canvas/Hex.svelte';
-	import { calculateHexagonPoints } from '$utils/CalculateHexPoints';
-	import { Pane } from 'tweakpane';
+	import { onMount } from 'svelte';
 
+	let map = Array(10)
+		.fill()
+		.map(() => Array(10).fill(0));
+	let creeps = [];
+	let towers = [];
+	let projectiles = [];
+	let gameRunning = false;
+	let placingTower = false;
 
-	$: global_width = 0;
-	$: global_height = 0;
-	$: console.log(`🚀 ~ file: Canvas.svelte:12 ~ global_height:`, global_height);
+	function startGame() {
+		gameRunning = true;
+		spawnCreep();
+		placeTower(5, 5);
+	}
 
-	$: settings = {
-		radius: 60,
-		numHexesInRow: 30,
-		numHexesInCol: 12,
-		hexWidth: 103.92304845413264,
-		hexHeight: 120,
-	};
+	function pauseGame() {
+		gameRunning = false;
+	}
 
-	$: unitWidth =
-		settings.radius > (global_width - settings.radius * 2) / settings.numHexesInRow
-			? (global_width - settings.radius * 2) / settings.numHexesInRow
-			: settings.radius;
-	$: unitHeight =
-		settings.radius > (global_height - settings.radius * 2) / settings.numHexesInCol
-			? (global_height - settings.radius * 2) / settings.numHexesInCol
-			: settings.radius;
-	$: calculatedRadius = unitWidth > unitHeight ? unitWidth : unitHeight;
+	function toggleTowerPlacement() {
+		placingTower = !placingTower;
+	}
 
-	$: hexes = [];
+	function spawnCreep() {
+		creeps.push({ x: 0, y: 0, health: 1 });
+	}
 
-	onMount(() => {
-		console.log('mounted');
-		console.log(`update global_width ${global_width} global_height ${global_height}`);
-		
-		unitWidth = (global_width - settings.radius * 2) / settings.numHexesInRow
-		unitHeight = (global_height - settings.radius * 2) / settings.numHexesInCol
-		console.log(`update unitWidth ${unitWidth} unitHeight ${unitHeight}`);
-		const pane = new Pane();
+	function placeTower(x, y) {
+		console.log(`🚀 ~ file: +page.svelte:33 ~ placeTower ~ map[${y}][${x}]:`, map[y][x]);
+		if (map[y][x] === 0) {
+			let hue = Math.floor(Math.random() * 360);
+			towers.push({ x, y, hue });
+			map[y][x] = 1;
+		}
+	}
 
-		let radiusBinding = pane.addBinding(settings, 'radius', {
-			min: 10,
-			max: 100,
-			step: 1,
-		});
-		
-		radiusBinding.on('change', () => {
-			console.log(`🚀 ~ file: +page.svelte:37 ~ radiusBinding.on ~ radiusBinding:`, radiusBinding)
-			hexes = generateHexGridCoordinates();
-		});
+	function fireProjectile(tower, creep) {
+		projectiles.push({ x: tower.x, y: tower.y, target: creep });
+	}
 
-		generateHexGridCoordinates();
-	});
+	function update() {
+		// Move creeps
+		for (let creep of creeps) {
+			creep.x += 1;
+			creep.y += 1;
+		}
 
-	onDestroy(() => {
-		console.log('destroyed');
-	});
+		// Move projectiles and check for collisions
+		for (let projectile of projectiles) {
+			projectile.x += (projectile.target.x - projectile.x) * 0.1;
+			projectile.y += (projectile.target.y - projectile.y) * 0.1;
 
-	const generateHexGridCoordinates = () => {
-		for (let i = 0; i < settings.numHexesInRow; i++) {
-			for (let j = 0; j < settings.numHexesInCol; j++) {
-				let x = i * unitWidth + unitWidth;
-				console.log(`🚀 ~ file: +page.svelte:46 ~ generateHexGridCoordinates ~ unitWidth:`, unitWidth)
-				let y = (j * unitHeight * 3) / 4 + (unitHeight * 3) / 4;
-				console.log(`🚀 ~ file: +page.svelte:48 ~ generateHexGridCoordinates ~ unitHeight :`, unitHeight )
-				if (j % 2 === 1) {
-					x += unitWidth / 2;
+			for (let creep of creeps) {
+				if (Math.abs(projectile.x - creep.x) < 1 && Math.abs(projectile.y - creep.y) < 1) {
+					creep.health -= 1;
+					if (creep.health <= 0) {
+						creeps = creeps.filter((c) => c !== creep);
+					}
+					projectiles = projectiles.filter((p) => p !== projectile);
 				}
-
-				const hex = calculateHexagonPoints(unitWidth, x, y);
-				console.log(`🚀 ~ file: Canvas.svelte:29 ~ generateHexGridCoordinates ~ hex:`, hex);
-				hexes = [...hexes, hex];
 			}
 		}
-		return hexes
-	};
 
+		// Fire projectiles from towers
+		for (let tower of towers) {
+			let target = creeps.find(
+				(creep) => Math.abs(tower.x - creep.x) < 10 && Math.abs(tower.y - creep.y) < 10
+			);
+			if (target) {
+				fireProjectile(tower, target);
+			}
+		}
+	}
 
+	onMount(() => {
+		const interval = setInterval(() => {
+			if (gameRunning) {
+				update();
+			}
+		}, 100);
+		return () => clearInterval(interval);
+	});
 </script>
 
-<svelte:window bind:innerWidth={global_width} bind:innerHeight={global_height} />
-
-<main>
-	<Canvas clearFrames={true}>
-		{#each hexes as hex}
-			<Hex {hex} />
-		{/each}
-	</Canvas>
-</main>
-
-
-<style>
-
-	:global(.tp-dfwv) {
-		top: 10rem !important;
-	}
-</style>
+<div id="controls" class="flex justify-center space-x-4 p-4">
+	<button
+		class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+		on:click={startGame}>Start</button
+	>
+	<button
+		class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+		on:click={pauseGame}>Pause</button
+	>
+	<button
+		class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+		on:click={toggleTowerPlacement}>Place Tower</button
+	>
+</div>
+<div id="game" class="grid grid-cols-10 gap-1 p-4">
+	{#each map as row, y}
+		<div class="row">
+			{#each row as cell, x}
+				<div
+					class="cell h-10 w-10 bg-green-200 m-2"
+					on:click={() => placingTower && placeTower(x, y)}
+				/>
+			{/each}
+		</div>
+	{/each}
+	{#each creeps as creep (creep)}
+		<div
+			class="creep h-8 w-8 bg-red-500 rounded-full absolute"
+			style="left: {creep.x * 20}px; top: {creep.y *
+				20}px; "
+		/>
+	{/each}
+	{#each towers as tower (tower)}
+		<div
+			class="tower h-10 w-10  rounded absolute"
+			style="left: {tower.x * 20}px; top: {tower.y * 20}px; background: hsl({tower.hue}, 100%, 50%);">
+			{() => console.log(`🚀 ~ HTML ~~file: +page.svelte:125 ~ tower:`, tower)}
+		
+		</div>
+	{/each}
+	{#each projectiles as projectile (projectile)}
+		<div
+			class="projectile h-2 w-2 bg-yellow-500 rounded-full absolute"
+			style="left: {projectile.x * 20}px; top: {projectile.y * 20}px;"
+		/>
+	{/each}
+</div>

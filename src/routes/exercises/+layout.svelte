@@ -23,4 +23,12 @@
 		grid-template-columns: 5rem 1fr;
 		height: 100vh;
 	}
+
+	.main-content {
+		display: flex;
+		flex-direction: column;
+		justify-content: start;
+		align-items: center;
+
+	}
 </style>
