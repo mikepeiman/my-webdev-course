@@ -32,9 +32,13 @@
 		console.log(`🚀 ~ file: +page.svelte:33 ~ placeTower ~ map[${y}][${x}]:`, map[y][x]);
 		if (map[y][x] === 0) {
 			let hue = Math.floor(Math.random() * 360);
-			towers.push({ x, y, hue });
+			console.log(`🚀 ~ file: +page.svelte:35 ~ placeTower ~ hue:`, hue);
+			let tower = { x, y, hue };
+			console.log(`🚀 ~ file: +page.svelte:38 ~ placeTower ~ tower:`, tower);
+			towers.push(tower);
 			map[y][x] = 1;
 		}
+		console.log(`🚀 ~ file: +page.svelte:39 ~ placeTower ~ towers:`, towers);
 	}
 
 	function fireProjectile(tower, creep) {
@@ -104,26 +108,35 @@
 	{#each map as row, y}
 		<div class="row">
 			{#each row as cell, x}
-				<div
-					class="cell h-10 w-10 bg-green-200 m-2"
-					on:click={() => placingTower && placeTower(x, y)}
-				/>
+				{#if towers.length > 0}
+					<div
+						class="cell h-10 w-10 bg-green-200 m-2 hover:bg-green-300 rounded"
+						on:click={() => placingTower && placeTower(x, y)}
+					>
+						<p>🗼</p>
+					</div>
+				{:else}
+					<div
+						class="cell h-10 w-10 bg-green-200 m-2 hover:bg-green-300 rounded"
+						on:click={() => placingTower && placeTower(x, y)}
+					/>
+				{/if}
 			{/each}
 		</div>
 	{/each}
 	{#each creeps as creep (creep)}
 		<div
 			class="creep h-8 w-8 bg-red-500 rounded-full absolute"
-			style="left: {creep.x * 20}px; top: {creep.y *
-				20}px; "
+			style="left: {creep.x * 20}px; top: {creep.y * 20}px; "
 		/>
 	{/each}
 	{#each towers as tower (tower)}
 		<div
-			class="tower h-10 w-10  rounded absolute"
-			style="left: {tower.x * 20}px; top: {tower.y * 20}px; background: hsl({tower.hue}, 100%, 50%);">
-			{() => console.log(`🚀 ~ HTML ~~file: +page.svelte:125 ~ tower:`, tower)}
-		
+			class="tower h-10 w-10 rounded absolute"
+			style="left: {tower.x * 20}px; top: {tower.y *
+				20}px; background: hsl({tower.hue}, 100%, 50%);"
+		>
+			<div class="text-black">{tower.x}</div>
 		</div>
 	{/each}
 	{#each projectiles as projectile (projectile)}
