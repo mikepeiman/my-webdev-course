@@ -1,14 +1,30 @@
 <script>
 	import { onMount } from 'svelte';
 
-	let map = Array(10)
-		.fill()
-		.map(() => Array(10).fill(0));
+	let map = Array(10).fill().map(() => Array(10).fill({ type: generateRandomTerrainType(), tower: null }));
+
 	let creeps = [];
 	let towers = [];
 	let projectiles = [];
 	let gameRunning = false;
 	let placingTower = false;
+
+	function generateRandomTerrainType() {
+		let rand = Math.floor(Math.random() * 3);
+
+		if (rand === 0) {
+			return 'passable';
+		}
+
+		if (rand === 1) {
+			return 'difficult';
+		}
+
+		if (rand === 2) {
+			return 'obstacle';
+		}
+		
+	}
 
 	function startGame() {
 		gameRunning = true;
@@ -30,13 +46,14 @@
 
 	function placeTower(x, y) {
 		console.log(`🚀 ~ file: +page.svelte:33 ~ placeTower ~ map[${y}][${x}]:`, map[y][x]);
+		console.log(`🚀 ~ file: +page.svelte:33 ~ placeTower ~ map:`, map)
 		if (map[y][x] === 0) {
 			let hue = Math.floor(Math.random() * 360);
 			console.log(`🚀 ~ file: +page.svelte:35 ~ placeTower ~ hue:`, hue);
 			let tower = { x, y, hue };
 			console.log(`🚀 ~ file: +page.svelte:38 ~ placeTower ~ tower:`, tower);
 			towers.push(tower);
-			map[y][x] = 1;
+			map[y][x]['tower'] = true;
 		}
 		console.log(`🚀 ~ file: +page.svelte:39 ~ placeTower ~ towers:`, towers);
 	}
@@ -106,24 +123,16 @@
 </div>
 <div id="game" class="grid grid-cols-10 gap-1 p-4">
 	{#each map as row, y}
-		<div class="row">
-			{#each row as cell, x}
-				{#if towers.length > 0}
-					<div
-						class="cell h-10 w-10 bg-green-200 m-2 hover:bg-green-300 rounded"
-						on:click={() => placingTower && placeTower(x, y)}
-					>
-						<p>🗼</p>
-					</div>
-				{:else}
-					<div
-						class="cell h-10 w-10 bg-green-200 m-2 hover:bg-green-300 rounded"
-						on:click={() => placingTower && placeTower(x, y)}
-					/>
-				{/if}
-			{/each}
-		</div>
-	{/each}
+    <div class="row">
+      {#each row as cell, x}
+        <div class={`cell h-10 w-10 m-2 hover:bg-amber-300 ${cell.type === 'passable' ? 'bg-green-200' : 'bg-gray-500'}`} on:click={() => placingTower && placeTower(x, y)}>
+          {#if cell.tower !== null}
+            <div class="tower h-10 w-10 bg-blue-500 rounded absolute"></div>
+          {/if}
+        </div>
+      {/each}
+    </div>
+  {/each}
 	{#each creeps as creep (creep)}
 		<div
 			class="creep h-8 w-8 bg-red-500 rounded-full absolute"
