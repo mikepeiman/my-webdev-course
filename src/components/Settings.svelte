@@ -1,3 +1,3 @@
 <div class="rightpanel-settings">
-    <slot name="rightpanel">Settings</slot>
+    <slot name="rightpanel"></slot>
 </div>

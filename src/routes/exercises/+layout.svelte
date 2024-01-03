@@ -21,7 +21,7 @@
 	.exercises-layout {
 		display: grid;
 		grid-template-columns: 5rem 1fr;
-		height: 100vh;
+		height: calc(100vh - 5rem);
 	}
 
 	.main-content {
@@ -29,6 +29,6 @@
 		flex-direction: column;
 		justify-content: start;
 		align-items: center;
-
+		height: calc(100vh - 5rem);
 	}
 </style>

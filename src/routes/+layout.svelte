@@ -48,3 +48,14 @@
 	<!-- Page Route Content -->
 	<slot />
 </AppShell>
+
+
+<style>
+	:global(#shell-header) {
+		height: 5rem;
+	}
+
+	:global(.app-bar) {
+		height: 100%;
+	}
+</style>
