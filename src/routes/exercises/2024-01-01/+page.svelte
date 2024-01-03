@@ -1,1 +1,1 @@
-It's Wednesday. I promised myself some coding today. Min 1h.
+Happy new year 2024!!!
