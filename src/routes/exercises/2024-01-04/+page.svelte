@@ -12,20 +12,28 @@
 	let lastUpdateTime = Date.now();
 	let counter = 0;
 
-
 	onMount(() => {
-		towers = generateTowers();
+		generateTowers();
 		creeps = generateCreeps();
-		console.log(`🚀 ~ file: +page.svelte:19 ~ onMount ~ creeps:`, creeps)
+		console.log(`🚀 ~ file: +page.svelte:19 ~ onMount ~ creeps:`, creeps);
 		gameLoop();
 	});
 
+	function makeSingleTower(i) {
+		console.log(`🚀 ~ file: +page.svelte:23 ~ makeSingleTower ~ i:`, i)
+		let w = window.innerWidth * 0.8;
+		let h = window.innerHeight * 0.8;
+		let x = w * Math.random() + 80;
+		let y = h * Math.random() + 80;
+		let tower = new Tower(i, x, y);
+		console.log(`🚀 ~ file: +page.svelte:29 ~ makeSingleTower ~ tower:`, tower)
+		return tower
+	}
+
 	function generateTowers() {
-		return Array.from({ length: numTowers }, (_, i) => {
-			const x = i * 100 + 50;
-			const y = 100;
-			return new Tower(x, y, 1, 10, 1);
-		});
+		for(let i = 0; i < numTowers; i++){
+			towers = [...towers, makeSingleTower(i)]
+		}
 	}
 
 	function generateCreeps() {
@@ -35,11 +43,8 @@
 			const y = 100;
 			const speed = Math.random() + 0.5;
 			return new Creep(x, y, speed, 100);
-			
-		})
+		});
 	}
-
-
 
 	let animationFrameId;
 

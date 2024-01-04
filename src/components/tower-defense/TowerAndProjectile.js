@@ -31,7 +31,8 @@ class Projectile {
 }
 
 class Tower {
-    constructor(x, y, level = 1, damage = 10, firingRate = 1) {
+    constructor(i, x, y, level = 1, damage = 10, firingRate = 1) {
+        this.id = i;
         this.x = x;
         this.y = y;
         this.level = level;
