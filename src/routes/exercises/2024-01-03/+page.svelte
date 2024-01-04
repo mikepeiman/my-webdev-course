@@ -37,7 +37,7 @@
 		console.log('tower clicked', event);
 		target = { x: event.clientX, y: event.clientY };
 		console.log(`🚀 ~ file: +page.svelte:32 ~ tower.addEventListener ~ target:`, target);
-        activeTower = tower;
+        activeTower === tower ? activeTower = null : activeTower = tower;
 	}
 
 	function setTarget(event) {
@@ -82,7 +82,7 @@
 	}
 
 	:global(.tower.active) {
-		animation: flash 1s infinite;
+		animation: flash .5s infinite;
 	}
 
 	@keyframes flash {
