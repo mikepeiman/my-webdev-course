@@ -4,6 +4,7 @@
 
 	let numTowers = 3;
 	let towers = [];
+    let projectiles = [];
 	let target = { x: 0, y: 0 };
 	let activeTower = null;
 	function isBrowser() {
@@ -36,9 +37,17 @@
 	function towerClicked(event, tower) {
 		console.log('tower clicked', event);
 		target = { x: event.clientX, y: event.clientY };
+        fireProjectile(tower);
 		console.log(`🚀 ~ file: +page.svelte:32 ~ tower.addEventListener ~ target:`, target);
         activeTower === tower ? activeTower = null : activeTower = tower;
 	}
+
+    function fireProjectile(tower) {
+        console.log(`🚀 ~ file: +page.svelte:32 ~ tower.addEventListener ~ target:`, target);
+        let shot = new Projectile(tower, target)
+        console.log(`🚀 ~ file: +page.svelte:47 ~ fireProjectile ~ shot:`, shot)
+        projectiles = [...projectiles, shot];
+    }
 
 	function setTarget(event) {
 		target = { x: event.clientX, y: event.clientY };

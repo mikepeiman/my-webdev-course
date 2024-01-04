@@ -1,8 +1,8 @@
 class Projectile {
-    constructor(x, y, targetX, targetY, speed = 1) {
-        this.x = x;
-        this.y = y;
-        this.target = { x: targetX, y: targetY };
+    constructor(tower, target, speed = 1) {
+        this.x = tower.x;
+        this.y = tower.y;
+        this.target = { x: target.x, y: target.y };
         this.speed = speed;
     }
 
@@ -71,4 +71,35 @@ class Tower {
     }
 }
 
-export { Projectile, Tower };
+class Creep {
+    constructor(x, y, speed = 1, health = 100) {
+        this.x = x;
+        this.y = y;
+        this.speed = speed;
+        this.health = health;
+    }
+
+    move(deltaTime) {
+        // Update the creep's position based on its speed and deltaTime
+        // This example assumes creeps move horizontally across the screen
+        this.x += this.speed * deltaTime;
+
+        // Check if the creep has reached the end of the screen
+        if (this.x > window.innerWidth) {
+            this.health = 0; // Creep loses all health when it reaches the end
+        }
+    }
+
+    takeDamage(amount) {
+        this.health -= amount;
+        if (this.health <= 0) {
+            this.isDead = true;
+        }
+    }
+
+    isAlive() {
+        return this.health > 0;
+    }
+}
+
+export { Creep, Projectile, Tower };
